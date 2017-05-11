@@ -9,6 +9,10 @@ check_remove(){
 	if [ $1 = "master" ]; then 
 		return 
 	fi
+	# This one should NOT be updated to master
+	if [ $1 = "cleanup_integration_tests" ]; then
+		return
+	fi
 	# if the remote brnach exist update the local branch with master and the remote branch
 	if git ls-remote --heads | grep -sw $1>/dev/null; then
 		echo $1 Still on remote
