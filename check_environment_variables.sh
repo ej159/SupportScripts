@@ -7,7 +7,6 @@ echo $PATH
 echo
 echo PERL5LIB
 echo $PERL5LIB
-ls $PERL5LIB
 echo
 echo NEURAL_MODELLING_DIRS
 echo $NEURAL_MODELLING_DIRS
