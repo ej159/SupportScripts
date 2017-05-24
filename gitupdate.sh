@@ -66,12 +66,7 @@ update(){
 }
 
 for D in *; do
-    # temproary skip ones are empty (last time I checked)
-	if [ $D = "sPyNNaker7ExtraModelsPlugin" ]; then
-		echo "skipping sPyNNaker7ExtraModelsPlugin"
-    elif  [ $D = "sPyNNaker8ExtraModelsPlugin" ]; then
-		echo "skipping sPyNNaker8ExtraModelsPlugin"
-	elif [ -d "${D}" ]; then
+	if [ -d "${D}" ]; then
         update "${D}" $1 
     fi
 done
