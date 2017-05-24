@@ -27,13 +27,13 @@ cd sPyNNaker/neural_modelling/
 make clean
 make || exit $?
 source $PWD/setup
-cd ../../sPyNNakerExternalDevicesPlugin/neural_modelling/
-make clean
-make || exit $?
+#cd ../../sPyNNakerExternalDevicesPlugin/neural_modelling/
+#make clean
+#make || exit $?
 cd ../../SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples/
 make clean
 make || exit $?
-cd ../../../sPyNNakerExtraModelsPlugin/neural_modelling
-make clean
-make || exit $?
+#cd ../../../sPyNNakerExtraModelsPlugin/neural_modelling
+#make clean
+#make || exit $?
 echo "completed"
