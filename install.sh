@@ -33,9 +33,9 @@ case $1 in
         break;;
     *8 ) echo "Installing for PyNN8";
         break;;
-    [Bb]* ) echo "Installing both for PyNN7 and PyNN8";
+    all ) echo "Installing All the main repositories8";
         break;;
-    * ) echo "Please specifiy if you wish to install for PyNN7, PyNN8, or Both.";
+    * ) echo "Please specifiy if you wish to install for PyNN7, PyNN8, or all.";
         exit;;
 esac
 check_or_install spinnaker_tools https://github.com/SpiNNakerManchester/spinnaker_tools.git
@@ -55,7 +55,7 @@ check_or_install IntroLab https://github.com/SpiNNakerManchester/IntroLab.git
 
 
 case $1 in
-    *7 ) echo "Seven";
+    *7 )
         check_or_install sPyNNaker7 https://github.com/SpiNNakerManchester/sPyNNaker7.git ;
         check_or_install sPyNNaker7ExternalDevicesPlugin https://github.com/SpiNNakerManchester/sPyNNaker7ExternalDevicesPlugin.git
         check_or_install sPyNNaker7ExtraModelsPlugin https://github.com/SpiNNakerManchester/sPyNNaker7ExtraModelsPlugin.git
@@ -63,7 +63,7 @@ case $1 in
         check_or_install PyNN7Examples https://github.com/SpiNNakerManchester/PyNN7Examples.git
         echo "Please insure your locally install PyNN is version 7"
         break;;
-    *8 ) echo "Eight";
+    *8 )
         check_or_install sPyNNaker8 https://github.com/SpiNNakerManchester/sPyNNaker8.git ;
         check_or_install sPyNNaker8ExternalDevicesPlugin https://github.com/SpiNNakerManchester/sPyNNaker8ExternalDevicesPlugin.git
         check_or_install sPyNNaker8ExtraModelsPlugin https://github.com/SpiNNakerManchester/sPyNNaker8ExtraModelsPlugin.git
@@ -71,7 +71,7 @@ case $1 in
         check_or_install PyNN8Examples https://github.com/SpiNNakerManchester/PyNN8Examples.git
         echo "Please insure your locally install PyNN is version 8"
         break ;;
-    [Bb]* ) echo "Both";
+    all )
         check_or_install sPyNNaker7 https://github.com/SpiNNakerManchester/sPyNNaker7.git ;
         check_or_install sPyNNaker7ExternalDevicesPlugin https://github.com/SpiNNakerManchester/sPyNNaker7ExternalDevicesPlugin.git
         check_or_install sPyNNaker7ExtraModelsPlugin https://github.com/SpiNNakerManchester/sPyNNaker7ExtraModelsPlugin.git
@@ -82,6 +82,11 @@ case $1 in
         check_or_install sPyNNaker8ExtraModelsPlugin https://github.com/SpiNNakerManchester/sPyNNaker8ExtraModelsPlugin.git
         check_or_install sPyNNaker8NewModelTemplate https://github.com/SpiNNakerManchester/sPyNNaker8NewModelTemplate.git
         check_or_install PyNN8Examples https://github.com/SpiNNakerManchester/PyNN8Examples.git
+        check_or_install SupportScripts https://github.com/SpiNNakerManchester/SupportScripts.git
+        check_or_install sphinx7 https://github.com/SpiNNakerManchester/sphinx7.git
+        check_or_install sphinx8 https://github.com/SpiNNakerManchester/sphinx8.git
+        check_or_install spalloc https://github.com/SpiNNakerManchester/spalloc.git
+        check_or_install spalloc_server https://github.com/SpiNNakerManchester/spalloc_server.git
         echo "Warning you will need to use virtual machines or reinstall PyNN each time you switch Pynn version"
         break;;
     * ) echo "Please specifiy if you wish to install for PyNN7, PyNN8, or Both.";
