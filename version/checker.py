@@ -83,9 +83,9 @@ def check_version(line, name, version, file):
     parts = line.split(" ")
     parts[2] = parts[2].strip(",")
     if parts[2] != version:
-         raise Exception("Version mismatch in {} found {} "
-                        "expected {} {} in File \"{}\"".format(file, line, name,
-                                                      version, file))
+        raise Exception("Version mismatch in {} found {} "
+                        "expected {} {} in File \"{}\""
+                        "".format(file, line, name, version, file))
 
 
 print root_directory

@@ -46,6 +46,7 @@ PUBLIC = "public"
 
 SLOTS_IMPOSSIBLE_MARKER = "# " + "No __slots__"
 
+
 def rreplace(s, old, new, occurrence=-1):
     """
     Helper function to do right replace
@@ -110,12 +111,11 @@ class FileDocChecker(object):
                     else:
                         self._check_line(line.rstrip().split("#")[0].rstrip())
             return self._info
-        except Exception as ex:
+        except Exception:
             traceback.print_exc()
             print "Exception call processing:"
             print self.python_path + ":" + str(self._lineNum)
             sys.exit(-1)
-
 
     def _check_line(self, line):
         if self.debug:

@@ -1,9 +1,5 @@
-import importlib
-import pkgutil
 import os
 from subprocess import call
-import sys
-import traceback
 
 from file_doc_checker import FileDocChecker
 import class_info as class_info
@@ -84,7 +80,7 @@ def double_dependency_check(infos, root):
     for info in infos:
         if info.state == class_info.SLOTS_IMPOSSIBLE:
             print "No __slots__ possible:", info
-            #print root + info.location()
+            # print root + info.location()
         elif len(info.supers) > 1:
             count = 0
             for super in info.supers:
@@ -157,9 +153,9 @@ def check_directory(path, pynn_version):
     print "checking double depencies"
     double_dependency_check(class_info.ClassInfo.all_classes(), realpath)
     print "Writing graphs"
-    #graph_infos_by_group(class_info.ClassInfo.all_classes())
-    #graph_by_supers(class_info.ClassInfo.all_classes())
-    #if error:
+    # graph_infos_by_group(class_info.ClassInfo.all_classes())
+    # graph_by_supers(class_info.ClassInfo.all_classes())
+    # if error:
     #    print "******* ERRORS FOUND **********"
     #    for info in infos:
     #        info.print_errors()
@@ -169,4 +165,3 @@ def check_directory(path, pynn_version):
 
 if __name__ == "__main__":
     check_directory("../../", 7)
-    #check_directory("/brenninc/spinnaker/sPyNNakerExternalDevicesPlugin/spynnaker_external_devices_plugin/pyNN/external_devices_models/push_bot/push_bot_ethernet/push_bot_ethernet_led_device.py", 7)

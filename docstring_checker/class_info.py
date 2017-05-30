@@ -15,7 +15,7 @@ SLOTS_IMPOSSIBLE = EXCEPTION + 1
 
 STATE_NAMES = {MARKER: "Marker", STATELESS: "Stateless", NORMAL: "Normal",
                SLOTLESS: "Slotless", THREAD: "Thread", EXCEPTION: "Exception",
-               SLOTS_IMPOSSIBLE : "Slots impossible"}
+               SLOTS_IMPOSSIBLE: "Slots impossible"}
 
 
 class ClassInfo(object):
@@ -86,8 +86,8 @@ class ClassInfo(object):
                 n_count += 1
                 file.write("\t {} -> n{}\n".format(self.gv_name(), n_count))
                 file.write(
-                    "\t n{} [label=\"{}\" color=yellow]".format(n_count,
-                        super.gv_name()))
+                    "\t n{} [label=\"{}\" color=yellow]"
+                    "".format(n_count, super.gv_name()))
             else:
                 file.write("\t {} -> {}\n".format(
                     self.gv_name(), super.gv_name()))
