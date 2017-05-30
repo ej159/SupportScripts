@@ -14,6 +14,9 @@ vroot=`dirname $0`/vera++
 root="$1"
 shift
 pattern='*.[ch]'
-find $root -name "$pattern" | \
-	vera++ --root $vroot --profile spinnaker.tcl --error ${1+"$@"}
+prof="--profile spinnaker.tcl"
+if [[ "${@#--profile}" = "$@" ]]; then :; else
+	prof=""
+fi
+find $root -name "$pattern" | vera++ --root $vroot $prof --error ${1+"$@"}
 exit $?
