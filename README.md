@@ -1,4 +1,4 @@
-These our our support script we use to develop the [SpiNNaker Project](http://apt.cs.manchester.ac.uk/projects/SpiNNaker/)
+These are our support script we use to develop the [SpiNNaker Project](http://apt.cs.manchester.ac.uk/projects/SpiNNaker/)
 
 They are intended for our internal use only and have only been tested in as far as they work for us on our machine when we are running it.
 
