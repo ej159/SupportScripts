@@ -28,16 +28,12 @@ check_or_install() {
 
 install_seven(){
     check_or_install sPyNNaker7 https://github.com/SpiNNakerManchester/sPyNNaker7.git ;
-    check_or_install sPyNNaker7ExternalDevicesPlugin https://github.com/SpiNNakerManchester/sPyNNaker7ExternalDevicesPlugin.git
-    check_or_install sPyNNaker7ExtraModelsPlugin https://github.com/SpiNNakerManchester/sPyNNaker7ExtraModelsPlugin.git
     check_or_install sPyNNaker7NewModelTemplate https://github.com/SpiNNakerManchester/sPyNNaker7NewModelTemplate.git
     check_or_install PyNN7Examples https://github.com/SpiNNakerManchester/PyNN7Examples.git
 }
 
 install_eight(){
     check_or_install sPyNNaker8 https://github.com/SpiNNakerManchester/sPyNNaker8.git ;
-    check_or_install sPyNNaker8ExternalDevicesPlugin https://github.com/SpiNNakerManchester/sPyNNaker8ExternalDevicesPlugin.git
-    check_or_install sPyNNaker8ExtraModelsPlugin https://github.com/SpiNNakerManchester/sPyNNaker8ExtraModelsPlugin.git
     check_or_install sPyNNaker8NewModelTemplate https://github.com/SpiNNakerManchester/sPyNNaker8NewModelTemplate.git
     check_or_install PyNN8Examples https://github.com/SpiNNakerManchester/PyNN8Examples.git
 }
@@ -68,6 +64,7 @@ check_or_install sPyNNaker https://github.com/SpiNNakerManchester/sPyNNaker.git
 check_or_install sPyNNakerExternalDevicesPlugin https://github.com/SpiNNakerManchester/sPyNNakerExternalDevicesPlugin.git
 check_or_install sPyNNakerExtraModelsPlugin https://github.com/SpiNNakerManchester/sPyNNakerExtraModelsPlugin.git
 check_or_install IntroLab https://github.com/SpiNNakerManchester/IntroLab.git
+check_or_install spalloc https://github.com/SpiNNakerManchester/spalloc.git
 
 case $1 in
     *7 )
@@ -85,7 +82,6 @@ case $1 in
         check_or_install sphinx7 https://github.com/SpiNNakerManchester/sphinx7.git
         check_or_install sphinx8 https://github.com/SpiNNakerManchester/sphinx8.git ;
         check_or_install SupportScripts https://github.com/SpiNNakerManchester/SupportScripts.git
-        check_or_install spalloc https://github.com/SpiNNakerManchester/spalloc.git
         check_or_install spalloc_server https://github.com/SpiNNakerManchester/spalloc_server.git
         echo "Warning you will need to use virtual machines or reinstall PyNN each time you switch Pynn version"
         break ;;
