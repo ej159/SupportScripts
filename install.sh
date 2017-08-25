@@ -63,11 +63,12 @@ check_or_install SpiNNakerGraphFrontEnd https://github.com/SpiNNakerManchester/S
 check_or_install sPyNNaker https://github.com/SpiNNakerManchester/sPyNNaker.git
 check_or_install sPyNNakerExternalDevicesPlugin https://github.com/SpiNNakerManchester/sPyNNakerExternalDevicesPlugin.git
 check_or_install sPyNNakerExtraModelsPlugin https://github.com/SpiNNakerManchester/sPyNNakerExtraModelsPlugin.git
+check_or_install sPyNNakerVisualisers https://github.com/SpiNNakerManchester/sPyNNakerVisualisers.git
 check_or_install IntroLab https://github.com/SpiNNakerManchester/IntroLab.git
 check_or_install spalloc https://github.com/SpiNNakerManchester/spalloc.git
 
 case $1 in
-    *7 )
+    *7 )g
         install_seven
         echo "Please insure your locally install PyNN is version 7"
         break;;
@@ -83,6 +84,7 @@ case $1 in
         check_or_install sphinx8 https://github.com/SpiNNakerManchester/sphinx8.git ;
         check_or_install SupportScripts https://github.com/SpiNNakerManchester/SupportScripts.git
         check_or_install spalloc_server https://github.com/SpiNNakerManchester/spalloc_server.git
+        check_or_install SpiNNakerManchester.github.io https://github.com/SpiNNakerManchester/SpiNNakerManchester.github.io.git
         echo "Warning you will need to use virtual machines or reinstall PyNN each time you switch Pynn version"
         break ;;
     all )
