@@ -18,5 +18,5 @@ prof="--profile spinnaker.tcl"
 if [[ "${@#--profile}" = "$@" ]]; then :; else
 	prof=""
 fi
-find $root -name "$pattern" | vera++ --root $vroot $prof --error ${1+"$@"}
+find $root -name '*.[ch]' -o -name '*.cpp' | vera++ --root $vroot $prof --error ${1+"$@"}
 exit $?
