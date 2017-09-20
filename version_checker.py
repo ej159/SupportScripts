@@ -74,24 +74,37 @@ def verify_version(declaration, versions):
                     raise Exception("For", parts[0], "<= mismatch", parts[4][:-1],
                                     version)
             if parts[3] == "<":
+                prefix = ""
                 chunks = parts[4].split(".")
-                print chunks[0]
                 major = chunks[0]
                 if major[:2] =="1!":
                     major = major[2:]
+                    prefix = "1!"
                 if major[0] == "v":
-                    major = major[1:]
-                print major
+                    raise Exception ("V in version")
                 major = int(major)
+                if chunks[1] != "0":
+                    raise Exception ("None minor not zero")
+                if chunks[2] != "0":
+                    raise Exception ("None minor not zero")
                 chunks = version.split(".")
                 previous = chunks[0]
                 if previous[:2] == "1!":
                     previous = previous[2:]
+                    if prefix != "1!":
+                        raise Exception ("Prefix clash")
+                else:
+                    if prefix != "":
+                        raise Exception ("Prefix clash")
                 if previous[0] == "v":
-                    previous = previous[1:]
+                    raise Exception ("V in version")
                 previous = int(previous)
                 if major != previous + 1:
                     raise Exception("Not an major bump", declaration)
+                if chunks[1] != "0":
+                    raise Exception ("None minor not zero")
+                if chunks[2] != "0":
+                    raise Exception ("None minor not zero")
 
 
 def setup_versions(realpath, versions):
