@@ -85,6 +85,7 @@ case $1 in
         check_or_install SupportScripts https://github.com/SpiNNakerManchester/SupportScripts.git
         check_or_install spalloc_server https://github.com/SpiNNakerManchester/spalloc_server.git
         check_or_install SpiNNakerManchester.github.io https://github.com/SpiNNakerManchester/SpiNNakerManchester.github.io.git
+        check_or_install lab_answers https://github.com/SpiNNakerManchester/lab_answers.git
         echo "Warning you will need to use virtual machines or reinstall PyNN each time you switch Pynn version"
         break ;;
     all )
