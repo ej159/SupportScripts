@@ -1,3 +1,4 @@
+#!/bin/bash
 # This script assumes it is run from the directory holding all github projects in parellel
 # sh SupportScripts/gitupdate.sh a_branch_name
 
@@ -46,6 +47,7 @@ update(){
 	    git gc --prune=now || exit -1
 	    # check each local branch
 	    for branch in $(git for-each-ref --format='%(refname)' refs/heads/); do
+	        echo ${branch:11}
 		    check_remove ${branch:11}
 	    done
 	    # switch back to master and then if available the branch selected

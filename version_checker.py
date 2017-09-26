@@ -103,7 +103,7 @@ def verify_version(declaration, versions):
                     raise Exception("Not an major bump", declaration)
                 if chunks[1] != "0":
                     raise Exception ("None minor not zero")
-                if chunks[2] != "0":
+                if chunks[2] != "1":
                     raise Exception ("None minor not zero")
 
 
