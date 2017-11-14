@@ -4,7 +4,7 @@ import shutil
 
 def check_setup(root):
     full_path = os.path.join(root, "setup.py")
-    with open(full_path,"r") as setup:
+    with open(full_path, "r") as setup:
         for line in setup:
             if "name=" in line:
                 parts = line.split('"')
@@ -13,7 +13,7 @@ def check_setup(root):
 
 def get_version_from_file(root, name):
     full_path = os.path.join(root, name)
-    with open(full_path,"r") as version_file:
+    with open(full_path, "r") as version_file:
         for line in version_file:
             if "__version__" in line:
                 parts = line.split('"')
@@ -26,7 +26,7 @@ def get_version_from_directory(realpath):
             return get_version_from_file(root, "_version.py")
         if "version.py" in files:
             return get_version_from_file(root, "version.py")
-    raise Exception ("No version found in ", realpath)
+    raise Exception("No version found in ", realpath)
 
 
 def get_versions(realpath):
@@ -65,50 +65,51 @@ def verify_version(declaration, versions):
         version = versions[parts[0]]
         if parts[1] == ">=":
             if parts[2][:-1] != version:
-                raise Exception ("For", parts[0], "mismatch", parts[2][:-1], version)
+                raise Exception("For", parts[0], "mismatch", parts[2][:-1],
+                                version)
         else:
-            raise Exception ("Not >=", declaration)
+            raise Exception("Not >=", declaration)
         if len(parts) > 3:
             if parts[3] == "<=":
                 if parts[4][:-1] != version:
-                    raise Exception("For", parts[0], "<= mismatch", parts[4][:-1],
-                                    version)
+                    raise Exception("For", parts[0], "<= mismatch",
+                                    parts[4][:-1], version)
             if parts[3] == "<":
                 prefix = ""
                 chunks = parts[4].split(".")
                 major = chunks[0]
-                if major[:2] =="1!":
+                if major[:2] == "1!":
                     major = major[2:]
                     prefix = "1!"
                 if major[0] == "v":
-                    raise Exception ("V in version")
+                    raise Exception("V in version")
                 major = int(major)
                 if chunks[1] != "0":
-                    raise Exception ("None minor not zero")
+                    raise Exception("None minor not zero")
                 if chunks[2] != "0":
-                    raise Exception ("None minor not zero")
+                    raise Exception("None minor not zero")
                 chunks = version.split(".")
                 previous = chunks[0]
                 if previous[:2] == "1!":
                     previous = previous[2:]
                     if prefix != "1!":
-                        raise Exception ("Prefix clash")
+                        raise Exception("Prefix clash")
                 else:
                     if prefix != "":
-                        raise Exception ("Prefix clash")
+                        raise Exception("Prefix clash")
                 if previous[0] == "v":
-                    raise Exception ("V in version")
+                    raise Exception("V in version")
                 previous = int(previous)
                 if major != previous + 1:
                     raise Exception("Not an major bump", declaration)
                 if chunks[1] != "0":
-                    raise Exception ("None minor not zero")
+                    raise Exception("None minor not zero")
                 if chunks[2] != "1":
-                    raise Exception ("None minor not zero")
+                    raise Exception("None minor not zero")
 
 
 def setup_versions(realpath, versions):
-   for root, dirs, files in os.walk(realpath, topdown=True):
+    for root, dirs, files in os.walk(realpath, topdown=True):
         if ".git" in dirs:
             dirs.remove(".git")
         if ".idea" in dirs:
@@ -140,6 +141,7 @@ def setup_versions(realpath, versions):
                         verify_version(parts[1], versions)
 
             dirs[:] = []
+
 
 realpath = os.path.realpath("../")
 versions = get_versions(realpath)
