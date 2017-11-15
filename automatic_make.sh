@@ -11,10 +11,6 @@ make clean
 make || exit $?
 make install
 cd ..
-cd SpiNNMan/c_models/reinjector/
-make clean
-make || exit $?
-cd ../../..
 cd SpiNNFrontEndCommon/c_common/
 cd front_end_common_lib/
 make install-clean
