@@ -7,21 +7,15 @@ foreach f [getSourceFileNames] {
     set lineNumber 1
     set previousIndent ""
 
-    # Special hack: handle comments on the last line
-    if {[catch {getAllLines $f} lines]} {
-    	set fd [open $f]
-    	set lineNumber [llength [split [read $fd] "\n"]]
-    	close $fd
-    	report $f $lineNumber "file needs to end with newline"
-    	continue
-    }
+    # Special hack: skip files that cause a failure in low-level parsing
+    if {[catch {getAllLines $f} lines]} continue
 
     foreach line $lines {
 	if {[regexp {^.*\r$} $line]} {
 	    report $f $lineNumber "CRLF line ending"
 	    set line [string range $line 0 end-1]
 	}
-	if [regexp {^.*[[:space:]]+$} $line] {
+	if {[regexp {^.*[[:space:]]+$} $line]} {
 	    if {$strictMode || [string trim $line] != "" || $line != $previousIndent} {
 		report $f $lineNumber "trailing whitespace"
 	    }
