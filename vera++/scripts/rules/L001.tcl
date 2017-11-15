@@ -6,11 +6,20 @@ set strictMode [getParameter "strict-trailing-space" 0]
 foreach f [getSourceFileNames] {
     set lineNumber 1
     set previousIndent ""
-    foreach line [getAllLines $f] {
 
-	if [regexp {^.*\r$} $line] {
-	  report $f $lineNumber "CRLF line ending"
-	  set line [string range $line 0 end-1]
+    # Special hack: handle comments on the last line
+    if {[catch {getAllLines $f} lines]} {
+    	set fd [open $f]
+    	set lineNumber [llength [split [read $fd] "\n"]]
+    	close $fd
+    	report $f $lineNumber "file needs to end with newline"
+    	continue
+    }
+
+    foreach line $lines {
+	if {[regexp {^.*\r$} $line]} {
+	    report $f $lineNumber "CRLF line ending"
+	    set line [string range $line 0 end-1]
 	}
 	if [regexp {^.*[[:space:]]+$} $line] {
 	    if {$strictMode || [string trim $line] != "" || $line != $previousIndent} {
