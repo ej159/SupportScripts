@@ -14,6 +14,7 @@ do_setup SpiNNMan
 do_setup PACMAN
 do_setup DataSpecification
 do_setup SpiNNFrontEndCommon
+do_setup SpiNNakerGraphFrontEnd
 do_setup sPyNNaker
 do_setup sPyNNaker7
 do_setup sPyNNaker8

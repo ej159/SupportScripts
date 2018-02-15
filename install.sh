@@ -27,15 +27,21 @@ check_or_install() {
 }
 
 install_seven(){
+    check_or_install sPyNNaker https://github.com/SpiNNakerManchester/sPyNNaker.git
     check_or_install sPyNNaker7 https://github.com/SpiNNakerManchester/sPyNNaker7.git ;
     check_or_install sPyNNaker7NewModelTemplate https://github.com/SpiNNakerManchester/sPyNNaker7NewModelTemplate.git
     check_or_install PyNN7Examples https://github.com/SpiNNakerManchester/PyNN7Examples.git
 }
 
 install_eight(){
+    check_or_install sPyNNaker https://github.com/SpiNNakerManchester/sPyNNaker.git
     check_or_install sPyNNaker8 https://github.com/SpiNNakerManchester/sPyNNaker8.git ;
     check_or_install sPyNNaker8NewModelTemplate https://github.com/SpiNNakerManchester/sPyNNaker8NewModelTemplate.git
     check_or_install PyNN8Examples https://github.com/SpiNNakerManchester/PyNN8Examples.git
+}
+
+install_gfe(){
+    check_or_install SpiNNakerGraphFrontEnd https://github.com/SpiNNakerManchester/SpiNNakerGraphFrontEnd.git
 }
 
 case $1 in
@@ -43,6 +49,7 @@ case $1 in
         break;;
     *8 ) echo "Installing for PyNN8";
         break;;
+    gfe) echo "Installing Graph Front End";
     man ) echo "Installing special manchester repositories";;
     all ) echo "Installing All the main repositories8";
         break;;
@@ -59,10 +66,6 @@ check_or_install PACMAN https://github.com/SpiNNakerManchester/PACMAN.git
 check_or_install SpiNNMan https://github.com/SpiNNakerManchester/SpiNNMan.git
 check_or_install DataSpecification https://github.com/SpiNNakerManchester/DataSpecification.git
 check_or_install SpiNNFrontEndCommon https://github.com/SpiNNakerManchester/SpiNNFrontEndCommon.git
-check_or_install SpiNNakerGraphFrontEnd https://github.com/SpiNNakerManchester/SpiNNakerGraphFrontEnd.git
-check_or_install sPyNNaker https://github.com/SpiNNakerManchester/sPyNNaker.git
-check_or_install sPyNNakerExternalDevicesPlugin https://github.com/SpiNNakerManchester/sPyNNakerExternalDevicesPlugin.git
-check_or_install sPyNNakerExtraModelsPlugin https://github.com/SpiNNakerManchester/sPyNNakerExtraModelsPlugin.git
 check_or_install sPyNNakerVisualisers https://github.com/SpiNNakerManchester/sPyNNakerVisualisers.git
 check_or_install IntroLab https://github.com/SpiNNakerManchester/IntroLab.git
 check_or_install spalloc https://github.com/SpiNNakerManchester/spalloc.git
@@ -70,15 +73,20 @@ check_or_install spalloc https://github.com/SpiNNakerManchester/spalloc.git
 case $1 in
     *7 )g
         install_seven
-        echo "Please insure your locally install PyNN is version 7"
+        echo "Please ensure your locally installed PyNN is version 7"
         break;;
     *8 )
         install_eight
-        echo "Please insure your locally install PyNN is version 8"
+        echo "Please ensure your locally installed PyNN is version 8"
         break ;;
+    gfe )
+        install_gfe
+        break ;;
+        
     man )
         install_seven
         install_eight
+        install_gfe
         check_or_install IntegrationTester https://github.com/SpiNNakerManchester/IntegrationTester.git
         check_or_install sphinx7 https://github.com/SpiNNakerManchester/sphinx7.git
         check_or_install sphinx8 https://github.com/SpiNNakerManchester/sphinx8.git ;
@@ -91,10 +99,9 @@ case $1 in
     all )
         install_seven
         install_eight
+        install_gfe
         echo "Warning you will need to use virtual machines or reinstall PyNN each time you switch Pynn version"
         break;;
     * ) echo "Please specifiy if you wish to install for PyNN7, PyNN8, or All. ";
         exit;;
 esac
-
-

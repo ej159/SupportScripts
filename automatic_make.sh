@@ -1,29 +1,18 @@
 # This script assumes it is run from the directory holding all github projects in parellel
 # sh SupportScripts/automatic_make.sh
 
-cd spinnaker_tools
-source $PWD/setup
-make clean
-make || exit $?
-cd ..
-cd spinn_common
-make clean
-make || exit $?
-make install
-cd ..
-cd SpiNNFrontEndCommon/c_common/
-cd front_end_common_lib/
-make install-clean
-cd ..
-make clean
-make || exit $?
-make install
-cd ../..
-cd sPyNNaker/neural_modelling/
-make clean
-make || exit $?
-source $PWD/setup
-cd ../../SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples/
-make clean
-make || exit $?
-echo "completed"
+do_make() {
+    if [ -d "$1" ]; then
+        # Control will enter here if DIRECTORY exists.
+        make -C $1 clean || exit $?
+        make -C $1 || exit $?
+        if [ $# == "install" ]; then
+            make -C $1 install || exit $?
+        fi
+    fi
+        
+do_make spinnaker_tools
+do_make spinn_common install
+do_make SpiNNFrontEndCommon/c_common/ install
+do_make sPyNNaker/neural_modelling/
+do_make SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples/
