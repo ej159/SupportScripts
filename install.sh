@@ -1,6 +1,6 @@
 #!/bin/bash
 
-yes_to_all = ""
+yes_to_all=""
 
 check_or_install() {
     if [ -d "$1" ]; then
@@ -14,7 +14,8 @@ check_or_install() {
         fi
     else
         while true; do
-            yn = "y"
+            yn="y"
+            echo "$yes_to_all"
             if [ "$yes_to_all" == "" ]; then
                 read -p "Do you wish to install $2 to $(pwd)/$1 [y]? " yn
                 yn=${yn:-y}
@@ -51,23 +52,19 @@ install_gfe(){
 }
 
 case $1 in
-    *7 ) echo "Installing for PyNN7";
-        break;;
-    *8 ) echo "Installing for PyNN8";
-        break;;
-    gfe) echo "Installing Graph Front End";
-        break;;
-    man ) echo "Installing special manchester repositories";
-        break;;
-    all ) echo "Installing All the main repositories8";
-        break;;
+    *7 ) echo "Installing for PyNN7";;
+    *8 ) echo "Installing for PyNN8";;
+    gfe) echo "Installing Graph Front End";;
+    man ) echo "Installing special manchester repositories";;
+    all ) echo "Installing All the main repositories8";;
     * ) echo "Please specifiy if you wish to install for PyNN7, PyNN8, or all?  ";
         exit;;
 esac
 
 if [ $# -gt 1 ]; then
     if [ "$2" == "-y" ]; then
-        yes_to_all = "y"
+        echo "Installing without prompt"
+        yes_to_all="y"
     fi
 fi
 
@@ -88,14 +85,14 @@ case $1 in
     *7 )g
         install_seven
         echo "Please ensure your locally installed PyNN is version 7"
-        break;;
+        ;;
     *8 )
         install_eight
         echo "Please ensure your locally installed PyNN is version 8"
-        break ;;
+        ;;
     gfe )
         install_gfe
-        break ;;
+        ;;
     man )
         install_seven
         install_eight
@@ -108,13 +105,13 @@ case $1 in
         check_or_install SpiNNakerManchester.github.io https://github.com/SpiNNakerManchester/SpiNNakerManchester.github.io.git
         check_or_install lab_answers https://github.com/SpiNNakerManchester/lab_answers.git
         echo "Warning you will need to use virtual machines or reinstall PyNN each time you switch Pynn version"
-        break ;;
+        ;;
     all )
         install_seven
         install_eight
         install_gfe
         echo "Warning you will need to use virtual machines or reinstall PyNN each time you switch Pynn version"
-        break;;
+        ;;
     * ) echo "Please specifiy if you wish to install for PyNN7, PyNN8, or All. ";
         exit;;
 esac
