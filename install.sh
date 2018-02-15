@@ -1,5 +1,7 @@
 #!/bin/bash
 
+$yes_to_all = ""
+
 check_or_install() {
     if [ -d "$1" ]; then
         # Control will enter here if DIRECTORY exists.
@@ -12,7 +14,11 @@ check_or_install() {
         fi
     else
         while true; do
-            read -p "Do you wish to install $2 to $(pwd)/$1" yn
+            yn = "y"
+            if [ "$yes_to_all" == "" ]; then
+                read -p "Do you wish to install $2 to $(pwd)/$1 [y]? " yn
+                yn=${yn:-y}
+            fi
             case $yn in
                 [Yy]* ) echo instaling $2;
                     git clone $2
@@ -57,6 +63,12 @@ case $1 in
     * ) echo "Please specifiy if you wish to install for PyNN7, PyNN8, or all?  ";
         exit;;
 esac
+
+if [ $# -gt 1 ]; then
+    if [ "$2" == "-y" ]; then
+        yes_to_all = "y"
+    fi
+fi
 
 check_or_install spinnaker_tools https://github.com/SpiNNakerManchester/spinnaker_tools.git
 check_or_install spinn_common https://github.com/SpiNNakerManchester/spinn_common.git
