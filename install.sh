@@ -50,6 +50,7 @@ case $1 in
     *8 ) echo "Installing for PyNN8";
         break;;
     gfe) echo "Installing Graph Front End";
+        break;;
     man ) echo "Installing special manchester repositories";;
     all ) echo "Installing All the main repositories8";
         break;;
@@ -82,7 +83,6 @@ case $1 in
     gfe )
         install_gfe
         break ;;
-        
     man )
         install_seven
         install_eight
