@@ -1,6 +1,6 @@
 #!/bin/bash
 
-$yes_to_all = ""
+yes_to_all = ""
 
 check_or_install() {
     if [ -d "$1" ]; then
@@ -57,7 +57,8 @@ case $1 in
         break;;
     gfe) echo "Installing Graph Front End";
         break;;
-    man ) echo "Installing special manchester repositories";;
+    man ) echo "Installing special manchester repositories";
+        break;;
     all ) echo "Installing All the main repositories8";
         break;;
     * ) echo "Please specifiy if you wish to install for PyNN7, PyNN8, or all?  ";
