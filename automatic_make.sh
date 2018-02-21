@@ -16,6 +16,6 @@ cd spinnaker_tools && source ./setup && cd ..
 do_make spinnaker_tools
 do_make spinn_common install
 do_make SpiNNFrontEndCommon/c_common/ install
-cd sPyNNaker/neural_modelling && source ./setup && cd ..
+cd sPyNNaker/neural_modelling && source ./setup && cd ../..
 do_make sPyNNaker/neural_modelling/
 do_make SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples/
