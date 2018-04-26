@@ -7,7 +7,7 @@ all: $(REQUIRED_REPOS)
 	$(MAKE) -C SpiNNFrontEndCommon/c_common/front_end_common_lib install-clean
 	$(MAKE) -C SpiNNFrontEndCommon/c_common clean all install
 	$(MAKE) -C sPyNNaker/neural_modelling clean all
-	#$(MAKE) -C SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples clean all
+	$(MAKE) -C SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples clean all
 	$(MAKE) -C sPyNNaker8NewModelTemplate/c_models clean all
 
 clean: $(REQUIRED_REPOS)
@@ -15,7 +15,7 @@ clean: $(REQUIRED_REPOS)
 	$(MAKE) -C spinn_common clean
 	$(MAKE) -C SpiNNFrontEndCommon/c_common clean
 	$(MAKE) -C sPyNNaker/neural_modelling clean
-	#$(MAKE) -C SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples clean
+	$(MAKE) -C SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples clean
 	$(MAKE) -C sPyNNaker8NewModelTemplate/c_models clean all
 
 .PHONY: all clean
