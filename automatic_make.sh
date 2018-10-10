@@ -19,6 +19,10 @@ make clean
 make || exit $?
 make install
 cd ../..
+cd NengoSpiNNaker/neural_modelling/
+make clean
+make || exit $?
+cd ../..
 cd sPyNNaker/neural_modelling/
 make clean
 make || exit $?
