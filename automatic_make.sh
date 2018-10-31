@@ -8,6 +8,7 @@ make || exit $?
 cd ..
 cd spinn_common
 make clean
+make install-clean
 make || exit $?
 make install
 cd ..
