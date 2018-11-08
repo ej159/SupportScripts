@@ -1,3 +1,19 @@
+""" Get the "closest" git version to a given version on a given repository.
+
+If the version is semantic formatted as <major>.<minor>.<patch> e.g. 4.0.1,
+this will print a version with the same major version, and with a minor version
+either the same or greater than the given minor version.  If a version with
+the same patch version exists, this will be printed, otherwise a greater
+patch number if possible, but if not, the greatest patch number is used.
+If the same major version does not exist, or only minor versions less than
+the minor version exist, master is printed.
+
+If a non-semantic version is given, if a branch or tag exists with the version,
+this is printed, otherwise master is printed.
+
+If a third argument is given, this is taken as a version prefix to be used;
+any semantic version will be assumed to have this prefix.
+"""
 from __future__ import print_function
 from collections import defaultdict
 import subprocess
@@ -15,15 +31,19 @@ def print_version(major, minor, patch):
 # Get the arguments
 repository = sys.argv[1]
 version = sys.argv[2]
+prefix = ""
+if len(sys.argv) > 3:
+    prefix = sys.argv[3]
 
 # Check if the version is a semantic version
-version_match = re.match("(\d+)\.(\d+)\.(\d+)", version)
+version_match = re.match("{}(\d+)\.(\d+)\.(\d+)".format(prefix), version)
 if not version_match:
 
     # If not a semantic version, check if the branch or tag exists
     FNULL = open(os.devnull, 'w')
-    result = subprocess.call(["git", "ls-remote", repository, version],
-                             stdout=FNULL, stderr=subprocess.STDOUT)
+    result = subprocess.call(
+        ["git", "ls-remote", "--exit-code", repository, version],
+        stdout=FNULL, stderr=subprocess.STDOUT)
     if result == 0:
         print(version)
         sys.exit(0)
@@ -41,7 +61,8 @@ v_patch = int(version_match.group(3))
 git_process = subprocess.check_output(["git", "ls-remote", repository])
 
 # Extract versions that are semantic
-pattern = re.compile("^[^\s]+\s+refs/(heads|tags)/(\d+)\.(\d+)\.(\d+)$")
+pattern = re.compile(
+    "^[^\s]+\s+refs/(heads|tags)/{}(\d+)\.(\d+)\.(\d+)$".format(prefix))
 versions = defaultdict(set)
 for line in git_process.split("\n"):
     matcher = pattern.match(line)
