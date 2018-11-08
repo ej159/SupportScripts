@@ -22,10 +22,10 @@ import sys
 import os
 
 
-def print_version(major, minor, patch):
+def print_version(prefix, major, minor, patch):
     """ Print the version
     """
-    print("{}.{}.{}".format(major, minor, patch))
+    print("{}{}.{}.{}".format(prefix, major, minor, patch))
 
 
 # Get the arguments
@@ -80,7 +80,7 @@ if v_major not in versions:
 # If the version exists exactly, return it
 matching = versions[v_major]
 if (v_minor, v_patch) in matching:
-    print_version(v_major, v_minor, v_patch)
+    print_version(prefix, v_major, v_minor, v_patch)
     sys.exit(0)
 
 # Look through the versions that are minor and patch of the major
@@ -89,7 +89,7 @@ for (minor, patch) in sorted(matching):
 
     # If the version is the same or higher, take it
     if (minor == v_minor and patch >= v_patch) or (minor > v_minor):
-        print_version(v_major, minor, patch)
+        print_version(prefix, v_major, minor, patch)
         sys.exit(0)
 
     # If the version is the same, but the patch is not higher, store for later
@@ -99,7 +99,7 @@ for (minor, patch) in sorted(matching):
 # If the only match was a minor without a patch, use it
 if incomplete_match is not None:
     minor, patch = incomplete_match
-    print_version(v_major, minor, patch)
+    print_version(prefix, v_major, minor, patch)
     sys.exit(0)
 
 # If no match, use master
