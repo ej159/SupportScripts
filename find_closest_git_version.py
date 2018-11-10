@@ -36,7 +36,7 @@ if len(sys.argv) > 3:
     prefix = sys.argv[3]
 
 # Check if the version is a semantic version
-version_match = re.match("{}(\d+)\.(\d+)\.(\d+)".format(prefix), version)
+version_match = re.match(r"{}(\d+)\.(\d+)\.(\d+)".format(prefix), version)
 if not version_match:
 
     # If not a semantic version, check if the branch or tag exists
@@ -62,7 +62,7 @@ git_process = subprocess.check_output(["git", "ls-remote", repository])
 
 # Extract versions that are semantic
 pattern = re.compile(
-    "^[^\s]+\s+refs/(heads|tags)/{}(\d+)\.(\d+)\.(\d+)$".format(prefix))
+    r"^[^\s]+\s+refs/(heads|tags)/{}(\d+)\.(\d+)\.(\d+)$".format(prefix))
 versions = defaultdict(set)
 for line in git_process.split("\n"):
     matcher = pattern.match(line)
