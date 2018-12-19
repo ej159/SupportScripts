@@ -3,7 +3,7 @@
 
 do_setup(){
 	cd $1 || exit $?
-	python setup.py develop --no-deps --user || exit $1
+	python setup.py develop --no-deps || exit $1
     cd ..
 }
 
