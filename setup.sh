@@ -13,10 +13,11 @@ do_setup SpiNNStorageHandlers
 do_setup SpiNNMan
 do_setup PACMAN
 do_setup DataSpecification
+do_setup spalloc
 do_setup SpiNNFrontEndCommon
 do_setup sPyNNaker
 # do_setup sPyNNaker7
 do_setup sPyNNaker8
 do_setup sPyNNaker8NewModelTemplate
 do_setup sPyNNakerVisualisers
-do_setup spalloc
+
