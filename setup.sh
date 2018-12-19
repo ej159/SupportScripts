@@ -17,4 +17,5 @@ do_setup SpiNNFrontEndCommon
 do_setup sPyNNaker
 # do_setup sPyNNaker7
 do_setup sPyNNaker8
+do_setup sPyNNaker8NewModelTemplate
 do_setup sPyNNakerVisualisers
