@@ -21,9 +21,9 @@ make || exit $?
 make install
 cd ../..
 cd sPyNNaker/neural_modelling/
+source $PWD/setup.bash
 make clean
 make || exit $?
-source $PWD/setup.bash
 cd ../../SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples/
 make clean
 make || exit $?
