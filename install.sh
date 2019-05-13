@@ -33,13 +33,6 @@ check_or_install() {
     fi
 }
 
-install_seven(){
-    check_or_install sPyNNaker https://github.com/SpiNNakerManchester/sPyNNaker.git
-    check_or_install sPyNNaker7 https://github.com/SpiNNakerManchester/sPyNNaker7.git ;
-    check_or_install sPyNNaker7NewModelTemplate https://github.com/SpiNNakerManchester/sPyNNaker7NewModelTemplate.git
-    check_or_install PyNN7Examples https://github.com/SpiNNakerManchester/PyNN7Examples.git
-}
-
 install_eight(){
     check_or_install sPyNNaker https://github.com/SpiNNakerManchester/sPyNNaker.git
     check_or_install sPyNNaker8 https://github.com/SpiNNakerManchester/sPyNNaker8.git ;
@@ -52,12 +45,11 @@ install_gfe(){
 }
 
 case $1 in
-    *7 ) echo "Installing for PyNN7";;
     *8 ) echo "Installing for PyNN8";;
     gfe) echo "Installing Graph Front End";;
     man ) echo "Installing special manchester repositories";;
     all ) echo "Installing All the main repositories8";;
-    * ) echo "Please specifiy if you wish to install for PyNN7, PyNN8, or all?  ";
+    * ) echo "Please specifiy if you wish to install for PyNN8, gfe or all?  ";
         exit;;
 esac
 
@@ -82,10 +74,6 @@ check_or_install IntroLab https://github.com/SpiNNakerManchester/IntroLab.git
 check_or_install spalloc https://github.com/SpiNNakerManchester/spalloc.git
 
 case $1 in
-    *7 )g
-        install_seven
-        echo "Please ensure your locally installed PyNN is version 7"
-        ;;
     *8 )
         install_eight
         echo "Please ensure your locally installed PyNN is version 8"
@@ -94,7 +82,6 @@ case $1 in
         install_gfe
         ;;
     man )
-        install_seven
         install_eight
         install_gfe
         check_or_install IntegrationTester https://github.com/SpiNNakerManchester/IntegrationTester.git
@@ -107,7 +94,6 @@ case $1 in
         echo "Warning you will need to use virtual machines or reinstall PyNN each time you switch Pynn version"
         ;;
     all )
-        install_seven
         install_eight
         install_gfe
         echo "Warning you will need to use virtual machines or reinstall PyNN each time you switch Pynn version"
