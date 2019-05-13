@@ -4,7 +4,7 @@
 do_setup() {
     if [ -d $1 ]; then
         cd $1
-        if [ -z "$VIRTUAL_ENV" ] || [ -z "$CONDA_PREFIX" ]; then
+        if [ -z "$VIRTUAL_ENV" ] && [ -z "$CONDA_PREFIX" ]; then
             python setup.py develop --user || exit $1
         else
             python setup.py develop || exit $1
