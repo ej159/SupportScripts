@@ -1,16 +1,17 @@
 #!/bin/bash
 dir0=$(dirname $BASH_SOURCE)
-echo $dir0
 op="$1"
 shift
 ratver=0.12
 raturl="http://www.mirrorservice.org/sites/ftp.apache.org//creadur/apache-rat-${ratver}/apache-rat-${ratver}-bin.tar.gz"
+ant=${ANT-ant}
 case $op in
 	download)
 		curl --output - "$raturl" 2>/dev/null | (cd $dir0 && tar -zxf -)
 		;;
 	run)
-		java -jar "${dir0}/apache-rat-${ratver}/apache-rat-${ratver}.jar" ${1+"$@"}
+		# java -jar "${dir0}/apache-rat-${ratver}/apache-rat-${ratver}.jar" ${1+"$@"}
+		eval $ant "-e -q -f $dir0/rat.xml -lib $dir0/apache-rat-$ratver rat"
 		;;
 	*)
 		echo "unknown op \"$op\": must be download or run" >&2
