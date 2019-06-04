@@ -7,7 +7,12 @@ raturl="http://www.mirrorservice.org/sites/ftp.apache.org/creadur/apache-rat-${r
 ant=${ANT-ant}
 case $op in
 	download)
-		curl --output - "$raturl" | (cd $dir0 && tar -zxf -)
+		if curl -I -D - "$raturl" 2>/dev/null | grep -q 'application/x-gzip'; then
+			curl --output - "$raturl" | (cd $dir0 && tar -zxf -)
+		else
+			echo "Version of RAT ($ratver) is wrong?"
+			echo "RAT URL: $raturl"
+		fi
 		;;
 	run)
 		# java -jar "${dir0}/apache-rat-${ratver}/apache-rat-${ratver}.jar" ${1+"$@"}
