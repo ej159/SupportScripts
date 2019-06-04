@@ -2,12 +2,12 @@
 dir0=$(dirname $BASH_SOURCE)
 op="$1"
 shift
-ratver=0.12
-raturl="http://www.mirrorservice.org/sites/ftp.apache.org//creadur/apache-rat-${ratver}/apache-rat-${ratver}-bin.tar.gz"
+ratver=0.13
+raturl="http://www.mirrorservice.org/sites/ftp.apache.org/creadur/apache-rat-${ratver}/apache-rat-${ratver}-bin.tar.gz"
 ant=${ANT-ant}
 case $op in
 	download)
-		curl --output - "$raturl" 2>/dev/null | (cd $dir0 && tar -zxf -)
+		curl --output - "$raturl" | (cd $dir0 && tar -zxf -)
 		;;
 	run)
 		# java -jar "${dir0}/apache-rat-${ratver}/apache-rat-${ratver}.jar" ${1+"$@"}
