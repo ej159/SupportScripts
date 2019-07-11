@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="rat" xmlns:rat="antlib:org.apache.rat.anttasks"
         xmlns:if="ant:if" xmlns="antlib:org.apache.tools.ant">
+	<property environment="env" />
+	<condition property="support.dir" value="${env.SUPPORT_DIR}" else="${user.dir}/support">
+		<isset property="env.SUPPORT_DIR" />
+	</condition>
     <target name="rat">
         <rat:report reportFile="${user.dir}/RAT_report.txt">
-            <fileset dir="${user.dir}" defaultexcludes="yes"
-                excludesfile="${user.dir}/.ratexcludes"
-                excludes="RAT_report.txt" />
+            <fileset dir="${user.dir}" defaultexcludes="yes">
+            	<exclude name="RAT_report.txt" />
+            	<excludesfile name="${user.dir}/.ratexcludes" />
+            	<excludesfile name="${support.dir}/rat.excludes" />
+			</fileset>
         </rat:report>
         <fail message="RAT_report.txt not generated">
             <condition>
