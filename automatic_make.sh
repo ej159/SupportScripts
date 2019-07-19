@@ -24,6 +24,9 @@ cd sPyNNaker/neural_modelling/
 source $PWD/setup.bash
 make clean
 make || exit $?
+cd ../../OME_SpiNN/c_models/
+make clean
+make || exit ?
 cd ../../SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples/
 make clean
 make || exit $?
