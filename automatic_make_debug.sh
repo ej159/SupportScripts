@@ -1,0 +1,30 @@
+# This script assumes it is run from the directory holding all github projects in parellel
+# sh SupportScripts/automatic_make.sh
+
+cd spinnaker_tools
+source $PWD/setup
+make clean
+make || exit $?
+cd ..
+cd spinn_common
+make clean
+make install-clean
+make || exit $?
+make install
+cd ..
+cd SpiNNFrontEndCommon/c_common/
+cd front_end_common_lib/
+make install-clean
+cd ..
+make clean
+make FEC_DEBUG=DEBUG || exit $?
+make install
+cd ../..
+cd sPyNNaker/neural_modelling/
+source $PWD/setup.bash
+make clean
+make SPYNNAKER_DEBUG=DEBUG || exit $?
+cd ../../SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples/
+make clean
+make || exit $?
+echo "completed"
