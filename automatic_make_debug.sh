@@ -31,8 +31,8 @@ do_make() {
 
 do_make spinnaker_tools
 do_make spinn_common install
-do_make SpiNNFrontEndCommon/c_common/front_end_common_lib install
+do_make SpiNNFrontEndCommon/c_common/front_end_common_lib install FEC_DEBUG=DEBUG
 do_make SpiNNFrontEndCommon/c_common/ install
-do_make sPyNNaker/neural_modelling/
-do_make sPyNNaker8NewModelTemplate/c_models/
+do_make sPyNNaker/neural_modelling/ noinstall SPYNNAKER_DEBUG=DEBUG
+do_make sPyNNaker8NewModelTemplate/c_models/ noinstall SPYNNAKER_DEBUG=DEBUG
 do_make SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples/
