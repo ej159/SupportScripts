@@ -1,5 +1,5 @@
-# This script assumes it is run from the directory holding all github projects in parellel
-# sh SupportScripts/settip.sh a_branch_name
+# This script assumes it is run from the directory holding all github projects in parallel
+# bash SupportScripts/setup_sudo.sh a_branch_name
 
 do_setup() {
     if [ -d $1 ]; then

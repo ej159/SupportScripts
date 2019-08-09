@@ -1,5 +1,5 @@
-# This script assumes it is run from the directory holding all github projects in parellel
-# sh SupportScripts/automatic_make.sh
+# This script assumes it is run from the directory holding all github projects in parallel
+# bash SupportScripts/automatic_make_debug.sh
 
 do_make() {
     if [ -d "$1" ]; then
