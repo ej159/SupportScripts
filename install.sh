@@ -48,8 +48,8 @@ case $1 in
     *8 ) echo "Installing for PyNN8";;
     gfe) echo "Installing Graph Front End";;
     man ) echo "Installing special manchester repositories";;
-    all ) echo "Installing All the main repositories8";;
-    * ) echo "Please specifiy if you wish to install for PyNN8, gfe or all?  ";
+    all ) echo "Installing All the main repositories";;
+    * ) echo "Please specifiy if you wish to install for PyNN8, gfe or all:";
         exit;;
 esac
 
@@ -91,13 +91,13 @@ case $1 in
         check_or_install spalloc_server https://github.com/SpiNNakerManchester/spalloc_server.git
         check_or_install SpiNNakerManchester.github.io https://github.com/SpiNNakerManchester/SpiNNakerManchester.github.io.git
         check_or_install lab_answers https://github.com/SpiNNakerManchester/lab_answers.git
-        echo "Warning you will need to use virtual machines or reinstall PyNN each time you switch Pynn version"
+        echo "Warning you will need to use virtual machines or reinstall PyNN each time you switch PyNN version"
         ;;
     all )
         install_eight
         install_gfe
-        echo "Warning you will need to use virtual machines or reinstall PyNN each time you switch Pynn version"
+        echo "Warning you will need to use virtual machines or reinstall PyNN each time you switch PyNN version"
         ;;
-    * ) echo "Please specifiy if you wish to install for PyNN7, PyNN8, or All. ";
+    * ) echo "Please specifiy if you wish to install for PyNN8, gfe or all:";
         exit;;
 esac
