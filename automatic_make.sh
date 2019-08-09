@@ -7,7 +7,12 @@ do_make() {
         # Run setup.bash if it exists
         if [ -f "$1/setup.bash" ]; then
             cd $1
-            source setup.bash
+            source setup.bash || exit $?
+            cd -
+        fi
+        if [ -f "$1/setup" ]; then
+            cd $1
+            source setup || exit $?
             cd -
         fi
         # Clean
@@ -24,11 +29,10 @@ do_make() {
     fi
 }
 
-cd spinnaker_tools && source ./setup && cd ..
 do_make spinnaker_tools
-do_make spinn_common install
-do_make SpiNNFrontEndCommon/c_common/front_end_common_lib install
-do_make SpiNNFrontEndCommon/c_common/ install
-cd sPyNNaker/neural_modelling && source ./setup.bash && cd ../..
-do_make sPyNNaker/neural_modelling/
-do_make SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples/
+#do_make spinn_common install
+#do_make SpiNNFrontEndCommon/c_common/front_end_common_lib install
+#do_make SpiNNFrontEndCommon/c_common/ install
+#do_make sPyNNaker/neural_modelling/
+#do_make sPyNNaker8NewModelTemplate/c_models/
+#do_make SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples/
