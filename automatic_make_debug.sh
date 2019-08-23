@@ -1,5 +1,5 @@
 # This script assumes it is run from the directory holding all github projects in parallel
-# bash SupportScripts/automatic_make.sh
+# bash SupportScripts/automatic_make_debug.sh
 
 do_make() {
     if [ -d "$1" ]; then
@@ -21,7 +21,7 @@ do_make() {
         # (probably because there is no install clean for most targets)
         make -C $1 install-clean || true
         # Make
-        make -C $1 || exit $?
+        make -C $1 $3 || exit $?
         # Install if needed
         if [ "$2" == "install" ]; then
             make -C $1 install || exit $?
@@ -31,9 +31,8 @@ do_make() {
 
 do_make spinnaker_tools
 do_make spinn_common install
-do_make SpiNNFrontEndCommon/c_common/front_end_common_lib install
+do_make SpiNNFrontEndCommon/c_common/front_end_common_lib install FEC_DEBUG=DEBUG
 do_make SpiNNFrontEndCommon/c_common/ install
-do_make sPyNNaker/neural_modelling/
-do_make sPyNNaker8NewModelTemplate/c_models/
+do_make sPyNNaker/neural_modelling/ noinstall SPYNNAKER_DEBUG=DEBUG
+do_make sPyNNaker8NewModelTemplate/c_models/ noinstall SPYNNAKER_DEBUG=DEBUG
 do_make SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples/
-do_make OME_SpiNN/c_models/
