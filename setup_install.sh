@@ -4,7 +4,7 @@
 do_setup() {
     if [ -d $1 ]; then
         cd $1
-        if [ -z "$VIRTUAL_ENV" ] && [ -z "$CONDA_PREFIX" ]; && [ -z "$ASROOT" ]; then
+        if [ -z "$VIRTUAL_ENV" ] && [ -z "$CONDA_PREFIX" ] && [ -z "$ASROOT" ]; then
             python setup.py install --user || exit $1
         else
             python setup.py install || exit $1
