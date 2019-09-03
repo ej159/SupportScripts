@@ -21,7 +21,7 @@ deactivate () {
         SPINN_DIRS="$_OLD_SPINN_DIRS"
         export SPINN_DIRS
         unset _OLD_SPINN_DIRS
-    elelif [ ! "${1-}" = "nondestructive" ] ; then
+    elif [ ! "${1-}" = "nondestructive" ] ; then
         unset SPINN_DIRS
     fi
     if ! [ -z "${_OLD_PERL5LIB:+_}" ] ; then
