@@ -34,5 +34,6 @@ do_make spinn_common install
 do_make SpiNNFrontEndCommon/c_common/front_end_common_lib install
 do_make SpiNNFrontEndCommon/c_common/ install
 do_make sPyNNaker/neural_modelling/
+do_make sPyNNaker/neural_modelling/ install
 do_make sPyNNaker8NewModelTemplate/c_models/
 do_make SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples/
