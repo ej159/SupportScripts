@@ -59,12 +59,13 @@ v_patch = int(version_match.group(3))
 
 # Run git ls-remote to get the list of branches and tags
 git_process = subprocess.check_output(["git", "ls-remote", repository])
+git_output = git_process.decode("utf-8")
 
 # Extract versions that are semantic
 pattern = re.compile(
     r"^[^\s]+\s+refs/(heads|tags)/{}(\d+)\.(\d+)\.(\d+)$".format(prefix))
 versions = defaultdict(set)
-for line in git_process.split("\n"):
+for line in git_output.split("\n"):
     matcher = pattern.match(line)
     if matcher:
         major = int(matcher.group(2))
