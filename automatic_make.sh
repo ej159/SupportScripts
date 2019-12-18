@@ -36,3 +36,4 @@ do_make SpiNNFrontEndCommon/c_common/ install
 do_make sPyNNaker/neural_modelling/
 do_make sPyNNaker8NewModelTemplate/c_models/
 do_make SpiNNakerGraphFrontEnd/spinnaker_graph_front_end/examples/
+do_make SpiNNakerGraphFrontEnd/gfe_integration_tests/
