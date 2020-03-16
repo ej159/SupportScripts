@@ -1,7 +1,7 @@
 #!/usr/bin/tclsh
 # Source file should not be too long
 
-set maxLines [getParameter "max-file-length" 2000]
+set maxLines [getParameter "max-file-length" 3000]
 
 foreach f [getSourceFileNames] {
     set length [getLineCount $f]
