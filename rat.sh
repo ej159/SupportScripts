@@ -3,12 +3,15 @@ dir0=$(dirname $BASH_SOURCE)
 op="$1"
 shift
 ratver=0.13
-raturl="http://www.mirrorservice.org/sites/ftp.apache.org/creadur/apache-rat-${ratver}/apache-rat-${ratver}-bin.tar.gz"
+### SELECT MIRROR!
+# apachebase="http://www.mirrorservice.org/sites/ftp.apache.org/"
+apachebase="http://mirror.ox.ac.uk/sites/rsync.apache.org/"
+raturl="${apachebase}creadur/apache-rat-${ratver}/apache-rat-${ratver}-bin.tar.gz"
 ant=${ANT-ant}
 case $op in
 	download)
-		if curl -I -D - "$raturl" 2>/dev/null | grep -q 'application/x-gzip'; then
-			curl --output - "$raturl" | (cd $dir0 && tar -zxf -)
+		if curl -s -I -D - "$raturl" 2>/dev/null | grep -q 'application/x-gzip'; then
+			curl -s --output - "$raturl" | (cd $dir0 && tar -zxf -)
 		else
 			echo "Version of RAT ($ratver) is wrong?"
 			echo "RAT URL: $raturl"
