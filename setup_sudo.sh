@@ -12,7 +12,6 @@ do_setup() {
 
 do_setup SpiNNUtils
 do_setup SpiNNMachine
-do_setup SpiNNStorageHandlers
 do_setup SpiNNMan
 do_setup PACMAN
 do_setup DataSpecification

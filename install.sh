@@ -64,7 +64,6 @@ check_or_install spinnaker_tools https://github.com/SpiNNakerManchester/spinnake
 check_or_install spinn_common https://github.com/SpiNNakerManchester/spinn_common.git
 check_or_install SpiNNUtils https://github.com/SpiNNakerManchester/SpiNNUtils.git
 check_or_install SpiNNMachine https://github.com/SpiNNakerManchester/SpiNNMachine.git
-check_or_install SpiNNStorageHandlers https://github.com/SpiNNakerManchester/SpiNNStorageHandlers.git
 check_or_install PACMAN https://github.com/SpiNNakerManchester/PACMAN.git
 check_or_install SpiNNMan https://github.com/SpiNNakerManchester/SpiNNMan.git
 check_or_install DataSpecification https://github.com/SpiNNakerManchester/DataSpecification.git
