@@ -9,7 +9,7 @@ echo $TRAVIS_BRANCH
 Branch=$(git ls-remote $REPO | awk '
     BEGIN {
     	branch = "master"
-    	target = "refs/heads/" $TRAVIS_BRANCH"
+    	target = "refs/heads/" $TRAVIS_BRANCH
     }
     $2==target {
     	branch = $TRAVIS_BRANCH
