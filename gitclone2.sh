@@ -2,7 +2,7 @@
 
 REPO=$1
 TARGET=$2
-TRAVIS_BRANCH=$(echo ENVIRON["GITHUB_REF"] | cut -d'/' -f 3)
+TRAVIS_BRANCH=$(echo $GITHUB_REF | cut -d'/' -f 3)
 
 echo $TRAVIS_BRANCH
 
