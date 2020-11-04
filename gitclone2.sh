@@ -2,9 +2,8 @@
 # This script works when called from a github action on PUSH not for PULL_REQUEST
 
 REPO=$1
-GIT_PATH=https://github.com/SpiNNakerManchester/${REPO}.git
 
-Branch=$(git ls-remote $GIT_PATH | awk '
+Branch=$(git ls-remote $REPO | awk '
     BEGIN {
     	branch = "master"
     	target = ENVIRON["GITHUB_REF"]
@@ -17,5 +16,5 @@ Branch=$(git ls-remote $GIT_PATH | awk '
     }')
 
 Branch=${Branch#refs/heads/}
-git clone --branch $Branch $GIT_PATH || exit $?
-echo "checked out branch $Branch of $GIT_PATH"
+git clone --branch $Branch $REPO || exit $?
+echo "checked out branch $Branch of $REPO
