@@ -17,4 +17,4 @@ Branch=$(git ls-remote $REPO | awk '
 
 Branch=${Branch#refs/heads/}
 git clone --branch $Branch $REPO || exit $?
-echo "checked out branch $Branch of $REPO
+echo "checked out branch $Branch of $REPO"
