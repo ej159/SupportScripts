@@ -5,7 +5,7 @@
 # Works for a github push action but not a pull_request
 REPO=$1
 GIT_PATH=https://github.com/SpiNNakerManchester/${REPO}.git
-
+echo $GITHUB_REF
 Branch=$(git ls-remote $GIT_PATH | awk '
     BEGIN {
     	branch = "master"
@@ -20,6 +20,7 @@ Branch=$(git ls-remote $GIT_PATH | awk '
 
 Branch=${Branch#refs/heads/}
 git clone --branch $Branch $GIT_PATH || exit $?
-echo "checked out branch $Branch of GIT_PATH"
+echo "checked out branch $Branch of $GIT_PATH"
 cd ${REPO}
+pwd
 python setup.py install
