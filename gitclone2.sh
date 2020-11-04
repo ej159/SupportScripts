@@ -2,18 +2,19 @@
 
 REPO=$1
 TARGET=$2
-echo "GITHUB_REF"=$GITHUB_REF
+
+echo "BRANCH_NAME:" $BRANCH_NAME
 Branch=$(git ls-remote $REPO | awk '
     BEGIN {
     	branch = "master"
-    	target = ENVIRON["GITHUB_REF"]
+    	target = "refs/heads/" ENVIRON["BRANCH_NAME"]
     }
     $2==target {
-    	branch = ENVIRON["GITHUB_REF"]
+    	branch = ENVIRON["BRANCH_NAME"]
     }
     END {
     	print branch
     }')
-Branch=${Branch#refs/heads/}
+
 git clone --branch $Branch $REPO $TARGET || exit $?
 echo "checked out branch $Branch of $REPO"
