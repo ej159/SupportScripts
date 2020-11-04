@@ -2,7 +2,7 @@
 
 REPO=$1
 TARGET=$2
-
+echo "GITHUB_REF"=$GITHUB_REF
 Branch=$(git ls-remote $REPO | awk '
     BEGIN {
     	branch = "master"
