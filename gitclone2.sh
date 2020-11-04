@@ -3,14 +3,13 @@
 REPO=$1
 TARGET=$2
 
-echo "BRANCH_NAME:" $BRANCH_NAME
 Branch=$(git ls-remote $REPO | awk '
     BEGIN {
     	branch = "master"
-    	target = "refs/heads/" ENVIRON["BRANCH_NAME"]
+    	target = "refs/heads/" ENVIRON["GITHUB_BRANCH"]
     }
     $2==target {
-    	branch = ENVIRON["BRANCH_NAME"]
+    	branch = ENVIRON["GITHUB_BRANCH"]
     }
     END {
     	print branch
