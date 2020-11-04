@@ -3,11 +3,12 @@
 REPO=$1
 TARGET=$2
 
-echo "TRAVIS_BRANCH="$TRAVIS_BRANCH
+echo "before TRAVIS_BRANCH="$TRAVIS_BRANCH
 echo "GITHUB_REF"=$GITHUB_REF
-TRAVIS_BRANCH=$(echo $GITHUB_REF | cut -d'/' -f 3)
+TRAVIS_BRANCH=$(echo $GITHUB_REF | cut -c 12-)
 echo $TRAVIS_BRANCH
 export TRAVIS_BRANCH
+echo "now TRAVIS_BRANCH="$TRAVIS_BRANCH
 Branch=$(git ls-remote $REPO | awk '
     BEGIN {
     	branch = "master"
