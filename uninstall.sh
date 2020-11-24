@@ -5,9 +5,9 @@ do_uninstall() {
     if [ -d $1 ]; then
         cd $1
         if [ -z "$VIRTUAL_ENV" ] && [ -z "$CONDA_PREFIX" ] && [ -z "$ASROOT" ]; then
-            python setup.py develop --uninstall || pip uninstall -y $2 || exit $1
+            python setup.py develop --uninstall --user || pip uninstall -y --user $2 || exit $1
         else
-            python setup.py develop --uninstall --user || pip uninstall --user -y $2 || exit $1
+            python setup.py develop --uninstall || pip uninstall -y $2 || exit $1
         fi
         cd ..
         echo "Uninstalled $1"
