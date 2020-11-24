@@ -24,6 +24,7 @@ inputs:
     description: The mirror of the Apache download site to get the library from
     required: false
     default: http://mirror.ox.ac.uk/sites/rsync.apache.org/
+    # Another alternative: http://www.mirrorservice.org/sites/ftp.apache.org/
   support-path:
     description: Path to the support directory
     required: false
@@ -31,13 +32,13 @@ inputs:
 runs:
   using: composite
   steps: 
-    - run: download.bash
+    - run: ${{ github.action_path }}/download.bash
       shell: bash
       env:
         RAT_VERSION: ${{ inputs.version }}
         RAT_MIRROR: ${{ inputs.mirror }}
         SUPPORT_DIR: ${{ inputs.support-path }}
-    - run: check.bash
+    - run: ${{ github.action_path }}/check.bash
       shell: bash
       env:
         RAT_VERSION: ${{ inputs.version }}
