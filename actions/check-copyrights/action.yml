@@ -31,20 +31,31 @@ inputs:
     default: ""
 runs:
   using: composite
-  steps: 
+  steps:
+    - name: Discover support path
+      id: support
+      run: |
+        if [ "x$SUPPORT_DIR" = "x" ]; then
+          SUPPORT_DIR=$(cd $dir0 && cd ../.. || cd; pwd)
+        else
+          SUPPORT_DIR=$(cd $SUPPORT_DIR; pwd)
+        fi
+        echo "::set-output name=support-path::$SUPPORT_DIR"
+      env:
+        SUPPORT_DIR: ${{ inputs.support-path }}
     - name: Download
       run: ${{ github.action_path }}/download.bash
       shell: bash
       env:
         RAT_VERSION: ${{ inputs.version }}
         RAT_MIRROR: ${{ inputs.mirror }}
-        SUPPORT_DIR: ${{ inputs.support-path }}
+        SUPPORT_DIR: ${{ steps.support.outputs.support-path }}
     - name: Check
       run: ${{ github.action_path }}/check.bash
       shell: bash
       env:
         RAT_VERSION: ${{ inputs.version }}
-        SUPPORT_DIR: ${{ inputs.support-path }}
+        SUPPORT_DIR: ${{ steps.support.outputs.support-path }}
 branding:
   icon: search
   color: red

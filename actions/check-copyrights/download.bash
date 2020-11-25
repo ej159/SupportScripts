@@ -1,9 +1,6 @@
 #!/bin/bash
 dir0=$(dirname $BASH_SOURCE)
 
-if [ "x$SUPPORT_DIR" = "x" ]; then
-	export SUPPORT_DIR=$(cd $dir0 && cd ../../.. || cd; pwd)
-fi
 ratver=$RAT_VERSION
 apachebase=$RAT_MIRROR
 raturl="${apachebase}creadur/apache-rat-${ratver}/apache-rat-${ratver}-bin.tar.gz"
