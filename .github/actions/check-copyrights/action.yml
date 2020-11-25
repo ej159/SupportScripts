@@ -32,14 +32,19 @@ inputs:
 runs:
   using: composite
   steps: 
-    - run: ${{ github.action_path }}/download.bash
+    - name: Download
+      run: ${{ github.action_path }}/download.bash
       shell: bash
       env:
         RAT_VERSION: ${{ inputs.version }}
         RAT_MIRROR: ${{ inputs.mirror }}
         SUPPORT_DIR: ${{ inputs.support-path }}
-    - run: ${{ github.action_path }}/check.bash
+    - name: Check
+      run: ${{ github.action_path }}/check.bash
       shell: bash
       env:
         RAT_VERSION: ${{ inputs.version }}
         SUPPORT_DIR: ${{ inputs.support-path }}
+branding:
+  icon: search
+  color: red
