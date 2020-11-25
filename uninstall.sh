@@ -4,24 +4,25 @@
 do_uninstall() {
     if [ -d $1 ]; then
         cd $1
+        EXTRA=
         if [ -z "$VIRTUAL_ENV" ] && [ -z "$CONDA_PREFIX" ] && [ -z "$ASROOT" ]; then
-            python setup.py develop --uninstall --user || pip uninstall -y --user $2 || exit $1
-        else
-            python setup.py develop --uninstall || pip uninstall -y $2 || exit $1
+            EXTRA=--user
         fi
+        pip uninstall -y $EXTRA $2
+        python setup.py develop --uninstall $EXTRA
         cd ..
         echo "Uninstalled $1"
     fi
 }
 
-do_uninstall SpiNNUtils
-do_uninstall SpiNNMachine
-do_uninstall SpiNNMan
-do_uninstall SpiNNaker_PACMAN
-do_uninstall SpiNNaker_DataSpecification
-do_uninstall spalloc
-do_uninstall SpiNNFrontEndCommon
-do_uninstall SpiNNakerGraphFrontEnd
-do_uninstall sPyNNaker
-do_uninstall sPyNNaker8
-do_uninstall sPyNNakerVisualisers
+do_uninstall SpiNNUtils SpiNNUtilities
+do_uninstall SpiNNMachine SpiNNMachine
+do_uninstall SpiNNMan SpiNNMan
+do_uninstall PACMAN SpiNNaker_PACMAN
+do_uninstall DataSpecification SpiNNaker_DataSpecification
+do_uninstall spalloc spalloc
+do_uninstall SpiNNFrontEndCommon SpiNNFrontEndCommon
+do_uninstall SpiNNakerGraphFrontEnd SpiNNakerGraphFrontEnd
+do_uninstall sPyNNaker sPyNNaker
+do_uninstall sPyNNaker8 sPyNNaker8
+do_uninstall sPyNNakerVisualisers sPyNNakerVisualisers
