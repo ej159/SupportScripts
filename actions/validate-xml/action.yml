@@ -24,7 +24,12 @@ inputs:
     default: ""
 runs:
   using: composite
-  steps: 
+  steps:
+    - run: |
+        echo "::group::Installing xmllint"
+        sudo apt-get install libxml2-utils --fix-missing
+        echo "::endgroup::"
+      shell: bash
     - name: Discover support path
       id: support
       run: |
