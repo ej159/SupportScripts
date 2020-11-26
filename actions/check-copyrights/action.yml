@@ -41,6 +41,7 @@ runs:
           SUPPORT_DIR=$(cd $SUPPORT_DIR; pwd)
         fi
         echo "::set-output name=support-path::$SUPPORT_DIR"
+      shell: bash
       env:
         SUPPORT_DIR: ${{ inputs.support-path }}
     - name: Download
