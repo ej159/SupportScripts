@@ -1,0 +1,43 @@
+# Copyright (c) 2020 The University of Manchester
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+name: "Run vera++"
+description: Runs vera++ on C code.
+inputs:
+  base-dir:
+    description: The name of the base directory containing the sources to check
+    required: true
+  profile:
+    description: Which profile to use
+    required: false
+    default: spinnaker
+  options:
+    description: Extra options to pass to vera++
+    required: false
+    default: ""
+runs:
+  using: composite
+  steps:
+    - run: |
+        sudo apt-get install vera++ --fix-missing
+      shell: bash
+    - run: >
+        find "$BASE_DIR" -name modified_src -prune -o -name '*.[ch]' -print -o -name '*.cpp' -print 
+        | vera++ --root "$VERA_ROOT" --profile "$VERA_PROFILE.tcl" --error ${{ inputs.options }}
+      shell: bash
+      env:
+        BASE_DIR: ${{ inputs.base-dir }}
+        VERA_ROOT: ${{ github.action_path }}
+        VERA_PROFILE: ${{ inputs.profile }}
