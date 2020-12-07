@@ -33,11 +33,11 @@ runs:
   using: composite
   steps:
     - run: |
-        if [ $(python ${{ github.action_path }}/ver.py) = ${{ inputs.blessed-version }} ]; then
+        if [ $(python ${{ github.action_path }}/ver.py) = $GOOD_VER ]; then
           sphinx-build -W -T -E -b $BUILDER -d _build/.cache -D language=en . _build/$BUILDER
         fi
       shell: bash
       working-directory: ${{ inputs.directory }}
       env:
         BUILDER: ${{ inputs.builder }}
-        PY_VER: ${{ inputs.python-version }}
+        GOOD_VER: ${{ inputs.blessed-version }}
