@@ -18,10 +18,6 @@ inputs:
   repositories:
     description: The list of SpiNNaker dependencies to check out
     required: true
-  support-path:
-    description: Path to the support directory
-    required: false
-    default: ""
   install:
     description: Whether to install the dependency after checking it out
     required: false
@@ -30,44 +26,39 @@ inputs:
     description: Whether to pre-install the dependencies before running the installer
     required: false
     default: false
+  requirements-filename:
+    description: The name of the requirements file
+    required: false
+    default: requirements.txt
 runs:
   using: composite
-  steps: 
-    - name: Discover support path
-      id: support
-      run: |
-        if [ "x$SUPPORT_DIR" = "x" ]; then
-          SUPPORT_DIR=$(cd ${{ github.action_path }}/../.. || cd; pwd)
-        else
-          SUPPORT_DIR=$(cd $SUPPORT_DIR; pwd)
-        fi
-        echo "::set-output name=support-path::$SUPPORT_DIR"
-      shell: bash
-      env:
-        SUPPORT_DIR: ${{ inputs.support-path }}
+  steps:
     - run: |
         for repo in $DEPENDENCIES; do
-          $SUPPORT_DIR/gitclone2.sh https://github.com/SpiNNakerManchester/$repo.git
+          "$SPIN_GITCLONE" https://github.com/SpiNNakerManchester/$repo.git
         done
       shell: bash
       working-directory: .
       env:
         DEPENDENCIES: ${{ inputs.repositories }}
-        SUPPORT_DIR: ${{ steps.support.outputs.support-path }}
+        SPIN_GITCLONE: ${{ github.action_path }}/gitclone.sh
     - run: |
-        for repo in $DEPENDENCIES; do
-          if [ $DO_INSTALL = "true" -a -f "$repo/setup.py" ]; then
-            echo "::group::Installing $repo"
-            if [ $DO_PREINST = "true" ]; then
-              (cd $repo && pip install -r requirements.txt)
+        if [ $DO_INSTALL = "true" ]; then
+          for repo in $DEPENDENCIES; do
+            if [ -f "$repo/setup.py" ]; then
+              echo "::group::Installing $repo"
+              if [ $DO_PREINST = "true" -a -f $repo/$REQ_FILE ]; then
+                (cd $repo && pip install -r $REQ_FILE)
+              fi
+              (cd $repo && exec python setup.py develop)
+              echo "::endgroup::"
             fi
-            (cd $repo && exec python setup.py develop)
-            echo "::endgroup::"
-          fi
-        done
+          done
+        fi
       shell: bash
       working-directory: .
       env:
         DEPENDENCIES: ${{ inputs.repositories }}
         DO_INSTALL: ${{ inputs.install }}
         DO_PREINST: ${{ inputs.preinstall }}
+        REQ_FILE: ${{ inputs.requirements-filename }}

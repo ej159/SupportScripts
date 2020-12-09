@@ -22,7 +22,9 @@ inputs:
     description: Where to run Sphinx
     required: true
   builder:
-    description: What Sphinx builder to use; see https://www.sphinx-doc.org/en/master/man/sphinx-build.html
+    description: >
+      What Sphinx builder to use; see 
+      https://www.sphinx-doc.org/en/master/man/sphinx-build.html
     required: false
     default: html
   blessed-version:

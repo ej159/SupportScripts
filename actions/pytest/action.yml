@@ -41,7 +41,7 @@ runs:
   using: composite
   steps: 
     - run: |
-        if [ $DO_COVERAGE == "true" ]; then
+        if [ $DO_COVERAGE = "true" ]; then
           ${{ github.action_path }}/run_pytest.bash ${{ inputs.cover-packages }}
         else
           ${{ github.action_path }}/run_pytest.bash
@@ -49,14 +49,14 @@ runs:
       shell: bash
       env:
         TEST_PKG: ${{ inputs.tests }}
-        DO_COVERAGE: ${{ inputs.coverage }}
+        DO_COVERAGE: ${{ inputs.coverage == 'true' }}
     - run: |
-        if [ $DO_COVERAGE == "true" ]; then
+        if [ $DO_COVERAGE = "true" ]; then
           coveralls
         fi
       env:
         COVERALLS_SERVICE_NAME: ${{ inputs.ci-name }}
         COVERALLS_REPO_TOKEN : ${{ inputs.coveralls-token }}
         NODE_COVERALLS_DEBUG: 1
-        DO_COVERAGE: ${{ inputs.coverage }}
+        DO_COVERAGE: ${{ inputs.coverage == 'true' }}
       shell: bash

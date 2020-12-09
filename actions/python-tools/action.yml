@@ -19,14 +19,25 @@ inputs:
     description: The version of pylint desired
     required: false
     default: < 2.5
+  coverage:
+    description: Whether to install tools for coverage checking
+    required: false
+    default: true
   coverage-version:
-    description: The version of converage desired
+    description: The version of coverage desired
     required: false
     default: ">= 4.4, < 5.0"
 runs:
   using: composite
   steps: 
-    - run: |
-        python -m pip install --upgrade pip setuptools wheel
-        pip install 'pylint ${{ inputs.pylint-version }}' python-coveralls 'coverage ${{ inputs.coverage-version }}'
-      shell: bash
+  - run: |
+      python -m pip install --upgrade pip setuptools wheel
+      pip install "pylint $PYLINT_VERSION"
+      if [ $DO_COVERAGE = "true" ]; then
+        pip install "coverage $COVERAGE_VERSION" python-coveralls
+      fi
+    shell: bash
+    env:
+      PYLINT_VERSION: ${{ inputs.pylint-version }}
+      DO_COVERAGE: ${{ inputs.coverage == 'true' }}
+      COVERAGE_VERSION: ${{ inputs.coverage-version }}

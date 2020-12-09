@@ -1,20 +1,23 @@
 #!/bin/bash
-dir0=$(dirname $BASH_SOURCE)
 
-ratver=$RAT_VERSION
-apachebase=$RAT_MIRROR
-raturl="${apachebase}creadur/apache-rat-${ratver}/apache-rat-${ratver}-bin.tar.gz"
+if [ -z "$SUPPORT_DIR" -o ! -d "$SUPPORT_DIR" ]; then
+	echo "::error::Undetermined support directory! ($SUPPORT_DIR)"
+	exit 1
+fi
+cd "$SUPPORT_DIR" || exit 2
 
-if [ -d "$SUPPORT_DIR/apache-rat-$RAT_VERSION" ]; then
+dir=apache-rat-${RAT_VERSION}
+raturl="${RAT_MIRROR}creadur/$dir/$dir-bin.tar.gz"
+
+if [ -d $dir ]; then
 	echo "::debug::Already downloaded; skipping..."
 	exit 0
 fi
 
-if curl -s -I -D - "$raturl" 2>/dev/null | grep -q "application/x-gzip"; then
-	curl -s --output - "$raturl" | (cd "$SUPPORT_DIR" && tar -zxf -)
-	exit $?
-else
-	echo "Version of RAT ($ratver) is wrong or mirror is down" >&2
-	echo "RAT URL: $raturl" >&2
+curl -s -I -D - "$raturl" 2>/dev/null | grep -q "application/x-gzip" || {
+	echo "::error::Version of RAT ($RAT_VERSION) is wrong or mirror is down (URL: $raturl)"
 	exit 1
-fi
+}
+
+curl -s --output - "$raturl" | tar -zxf -
+exit $?
