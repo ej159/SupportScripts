@@ -13,7 +13,7 @@ check_remove(){
 		echo $1 Still on remote
 		git checkout $1
 		git merge -m"merged in remote/$1" refs/remotes/origin/$1 || exit -1
-		git merge -m"merged in master" refs/remotes/origin/master || exit -1
+		git merge -m"merged in master" refs/remotes/origin/master || git merge -m"merged in main" refs/remotes/origin/main || exit -1
 		git checkout -q master
 		return
 	fi
@@ -25,6 +25,17 @@ check_remove(){
 		     	echo $1 Same as Master
 		else
 		    # behind master so assumed no longer required
+			git branch -d $1 || exit -1
+			echo $1 deleted
+		fi
+	# Check if the local branch has been fully merged into master
+	elif git merge-base --is-ancestor refs/heads/$1 refs/remotes/origin/main; then
+	    # check the local branch has falled behind master
+		if git merge-base --is-ancestor refs/remotes/origin/main refs/heads/$1 ; then
+		        # Same as Main so probably a new branch
+		     	echo $1 Same as Main
+		else
+		    # behind main so assumed no longer required
 			git branch -d $1 || exit -1
 			echo $1 deleted
 		fi
@@ -42,8 +53,8 @@ update(){
 	if [ -d .git ]; then
 	    # update master
 	    git fetch
-	    git checkout -q master || exit -1
-	    git merge -m "merged in remote master" refs/remotes/origin/master || exit -1
+	    git checkout -q master || git checkout -q main || exit -1
+	    git merge -m "merged in remote master" refs/remotes/origin/master || git merge -m "merged in remote main" refs/remotes/origin/main  || exit -1
 	    # git gc --prune=now || exit -1
 	    # check each local branch
 	    for branch in $(git for-each-ref --format='%(refname)' refs/heads/); do
@@ -51,7 +62,7 @@ update(){
 		    check_remove ${branch:11}
 	    done
 	    # switch back to master and then if available the branch selected
-        git checkout -q master
+        git checkout -q master || git checkout -q main
 	    if [ -n "$2" ]; then
             git checkout -q $2
         fi
