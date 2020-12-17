@@ -32,7 +32,7 @@ runs:
   steps: 
   - run: |
       python -m pip install --upgrade pip setuptools wheel
-      pip install "pylint $PYLINT_VERSION"
+      pip install flake8 "pylint $PYLINT_VERSION"
       if [ $DO_COVERAGE = "true" ]; then
         pip install "coverage $COVERAGE_VERSION" python-coveralls
       fi
