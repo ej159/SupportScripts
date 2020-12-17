@@ -16,21 +16,22 @@
 name: "Validate SpiNNaker XML"
 inputs:
   base-path:
-    description: The root directory to find XML files within
+    description: 
+      The root directory to find XML files within. Can be a space-separated list.
     required: true
 runs:
   using: composite
   steps:
-    - run: |
-        echo "::group::Installing xmllint"
-        sudo apt-get install libxml2-utils --fix-missing
-        echo "::endgroup::"
-      shell: bash
-    - run: |
-        find "$BASE_PATH" -name '*.xml' | xargs -n 1 "$SUPPORT_DIR/validate-xml.sh"
-      shell: bash
-      working-directory: .
-      env:
-        BASE_PATH: ${{ inputs.base-path }}
-        SUPPORT_DIR: ${{ github.action_path }}
-        XML_CATALOG_FILES: ${{ github.action_path }}/catalog.xml
+  - run: |
+      echo "::group::Installing xmllint"
+      sudo apt-get install libxml2-utils --fix-missing
+      echo "::endgroup::"
+    shell: bash
+  - run: >
+      (for path in $BASE_PATHS; do find "$path" -name '*.xml'; done) | xargs -r -n 1 "$VALIDATOR_PATH"
+    shell: bash
+    working-directory: .
+    env:
+      BASE_PATHS: ${{ inputs.base-path }}
+      VALIDATOR_PATH: ${{ github.action_path }}/validate-xml.sh
+      XML_CATALOG_FILES: ${{ github.action_path }}/catalog.xml
