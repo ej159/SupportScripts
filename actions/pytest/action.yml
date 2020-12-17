@@ -21,6 +21,10 @@ inputs:
   tests:
     description: The name of the Python package containing the tests
     required: true
+  options:
+    description: Extra options to pass to pytest
+    required: false
+    default: ""
   coverage:
     description: Whether to do coverage
     required: false
@@ -50,6 +54,7 @@ runs:
       env:
         TEST_PKG: ${{ inputs.tests }}
         DO_COVERAGE: ${{ inputs.coverage == 'true' }}
+        EXTRA_OPTS: ${{ inputs.options }}
     - run: |
         if [ $DO_COVERAGE = "true" ]; then
           coveralls
