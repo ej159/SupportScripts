@@ -31,9 +31,13 @@ runs:
   using: composite
   steps:
     - run: |
-        echo "::group::Installing vera++"
-        sudo apt-get install vera++ --fix-missing
-        echo "::endgroup::"
+        if which vera++ >/dev/null; then
+          : "vera++ already installed"
+        else
+          echo "::group::Installing vera++"
+          sudo apt-get install vera++ --fix-missing </dev/null
+          echo "::endgroup::"
+        fi
       shell: bash
     - run: >
         find "$BASE_DIR" -name modified_src -prune -o -name '*.[ch]' -print -o -name '*.cpp' -print 

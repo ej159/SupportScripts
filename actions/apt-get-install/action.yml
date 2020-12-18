@@ -13,29 +13,27 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-name: "Validate SpiNNaker XML"
+name: "Install Debian/Ubuntu packages"
+description: Runs apt-get to install Debian/Ubuntu packages.
 inputs:
-  base-path:
-    description: 
-      The root directory to find XML files within. Can be a space-separated list.
+  packages:
+    description: The names of the packages to install
     required: true
+  only-if-not-present:
+    description: The name of a program that precludes running the install
+    required: false
+    default: ""
 runs:
   using: composite
   steps:
   - run: |
-      if which xmllint >/dev/null; then
-        : "xmllint already installed"
+      if [ -z "$CONDITION" ]; then
+        sudo apt-get install $PACKAGES --fix-missing </dev/null
+      elif which "$CONDITION" >/dev/null; then
+        : Program found; skip install
       else
-        echo "::group::Installing xmllint"
-        sudo apt-get install libxml2-utils --fix-missing </dev/null
-        echo "::endgroup::"
+        sudo apt-get install $PACKAGES --fix-missing </dev/null
       fi
-    shell: bash
-  - run: >
-      (for path in $BASE_PATHS; do find "$path" -name '*.xml'; done) | xargs -r -n 1 "$VALIDATOR_PATH"
-    shell: bash
-    working-directory: .
     env:
-      BASE_PATHS: ${{ inputs.base-path }}
-      VALIDATOR_PATH: ${{ github.action_path }}/validate-xml.sh
-      XML_CATALOG_FILES: ${{ github.action_path }}/catalog.xml
+      PACKAGES: ${{ inputs.packages }}
+      CONDITION: ${{ inputs.only-if-not-present }}
