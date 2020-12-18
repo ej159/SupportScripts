@@ -32,9 +32,9 @@ runs:
       CONDITION: ${{ inputs.only-if-not-present }}
     run: |
       if [ -z "$CONDITION" ]; then
-        sudo apt-get install $PACKAGES --fix-missing </dev/null | cat
+        sudo apt-get -o Dpkg::Use-Pty=0 install $PACKAGES --fix-missing
       elif which "$CONDITION" >/dev/null; then
         : Program found; skip install
       else
-        sudo apt-get install $PACKAGES --fix-missing </dev/null | cat
+        sudo apt-get -o Dpkg::Use-Pty=0 install $PACKAGES --fix-missing
       fi

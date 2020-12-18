@@ -35,7 +35,7 @@ runs:
           : "vera++ already installed"
         else
           echo "::group::Installing vera++"
-          sudo apt-get install vera++ --fix-missing </dev/null | cat
+          sudo apt-get -o Dpkg::Use-Pty=0 install vera++ --fix-missing
           echo "::endgroup::"
         fi
       shell: bash
