@@ -26,7 +26,11 @@ inputs:
 runs:
   using: composite
   steps:
-  - run: |
+  - shell: bash
+    env:
+      PACKAGES: ${{ inputs.packages }}
+      CONDITION: ${{ inputs.only-if-not-present }}
+    run: |
       if [ -z "$CONDITION" ]; then
         sudo apt-get install $PACKAGES --fix-missing </dev/null
       elif which "$CONDITION" >/dev/null; then
@@ -34,6 +38,3 @@ runs:
       else
         sudo apt-get install $PACKAGES --fix-missing </dev/null
       fi
-    env:
-      PACKAGES: ${{ inputs.packages }}
-      CONDITION: ${{ inputs.only-if-not-present }}
