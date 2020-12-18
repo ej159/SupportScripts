@@ -15,9 +15,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-cmd="pytest $TEST_PKG"
-for arg in "$@"; do
-	cmd="$cmd --cov $arg"
+for pkg in $TEST_PKG; do
+	cmd="pytest $pkg"
+	for arg in "$@"; do
+		cmd="$cmd --cov $arg"
+	done
+	eval $cmd $EXTRA_OPTS
+	code=$?
+	if [ $code != 0 ]; then
+		exit $code
+	fi
+	EXTRA_OPTS="$EXTRA_OPTS --cov-append"
 done
-eval $cmd $EXTRA_OPTS
-exit $?
