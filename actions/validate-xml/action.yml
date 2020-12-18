@@ -27,7 +27,7 @@ runs:
         : "xmllint already installed"
       else
         echo "::group::Installing xmllint"
-        sudo apt-get install libxml2-utils --fix-missing </dev/null
+        sudo apt-get install libxml2-utils --fix-missing </dev/null | cat
         echo "::endgroup::"
       fi
     shell: bash
