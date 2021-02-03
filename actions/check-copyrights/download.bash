@@ -14,10 +14,10 @@ if [ -d $dir ]; then
   exit 0
 fi
 
-curl -s -I -L -D - "$raturl" 2>/dev/null | grep -q "application/x-gzip" || {
+curl -s -I -L -D - "$raturl" 2>/dev/null | grep -q "200 OK" || {
   echo "::error::Version of RAT ($RAT_VERSION) is wrong or mirror is down (URL: $raturl)"
   exit 1
 }
 
-curl -s --output - "$raturl" | tar -zxf -
+curl -s -L --output - "$raturl" | tar -zxf -
 exit $?
