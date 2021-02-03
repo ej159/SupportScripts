@@ -23,7 +23,7 @@ inputs:
   mirror:
     description: The mirror of the Apache download site to get the library from
     required: false
-    default: http://mirror.ox.ac.uk/sites/rsync.apache.org/
+    default: https://www.apache.org/dyn/closer.cgi?filename=creadur/apache-rat-0.13/apache-rat-0.13-bin.tar.bz2&action=download
     # Another alternative: http://www.mirrorservice.org/sites/ftp.apache.org/
 runs:
   using: composite
