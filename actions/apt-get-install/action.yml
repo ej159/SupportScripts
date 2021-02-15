@@ -1,0 +1,40 @@
+# Copyright (c) 2020 The University of Manchester
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+name: "Install Debian/Ubuntu packages"
+description: Runs apt-get to install Debian/Ubuntu packages.
+inputs:
+  packages:
+    description: The names of the packages to install
+    required: true
+  only-if-not-present:
+    description: The name of a program that precludes running the install
+    required: false
+    default: ""
+runs:
+  using: composite
+  steps:
+  - shell: bash
+    env:
+      PACKAGES: ${{ inputs.packages }}
+      CONDITION: ${{ inputs.only-if-not-present }}
+    run: |
+      if [ -z "$CONDITION" ]; then
+        sudo apt-get -o Dpkg::Use-Pty=0 install $PACKAGES --fix-missing
+      elif which "$CONDITION" >/dev/null; then
+        : Program found; skip install
+      else
+        sudo apt-get -o Dpkg::Use-Pty=0 install $PACKAGES --fix-missing
+      fi

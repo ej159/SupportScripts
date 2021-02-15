@@ -1,0 +1,41 @@
+# Copyright (c) 2020 The University of Manchester
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+name: "Validate SpiNNaker XML"
+inputs:
+  base-path:
+    description: 
+      The root directory to find XML files within. Can be a space-separated list.
+    required: true
+runs:
+  using: composite
+  steps:
+  - run: |
+      if which xmllint >/dev/null; then
+        : "xmllint already installed"
+      else
+        echo "::group::Installing xmllint"
+        sudo apt-get -o Dpkg::Use-Pty=0 install libxml2-utils --fix-missing
+        echo "::endgroup::"
+      fi
+    shell: bash
+  - run: >
+      (for path in $BASE_PATHS; do find "$path" -name '*.xml'; done) | xargs -r -n 1 "$VALIDATOR_PATH"
+    shell: bash
+    working-directory: .
+    env:
+      BASE_PATHS: ${{ inputs.base-path }}
+      VALIDATOR_PATH: ${{ github.action_path }}/validate-xml.sh
+      XML_CATALOG_FILES: ${{ github.action_path }}/catalog.xml
