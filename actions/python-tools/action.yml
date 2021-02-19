@@ -29,13 +29,14 @@ inputs:
     default: ">= 4.4, < 5.0"
 runs:
   using: composite
-  steps: 
+  steps:
   - run: |
       python -m pip install --upgrade pip setuptools wheel
       pip install flake8 "pylint $PYLINT_VERSION"
       if [ $DO_COVERAGE = "true" ]; then
         pip install "coverage $COVERAGE_VERSION" python-coveralls
       fi
+      python -m pip install matplotlib
     shell: bash
     env:
       PYLINT_VERSION: ${{ inputs.pylint-version }}
