@@ -13,31 +13,30 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-name: "Install Advanced Python Tools"
+# Note that this action may need updating as different versions of matplotlib
+# and python are released.
+
+name: Install matplotlib
 inputs:
-  pylint-version:
-    description: The version of pylint desired
+  python-version:
+    description: The version of python being used
+    required: true
+  back-end: 
+    description: Which rendering engine to use, a python module name
     required: false
-    default: < 2.5
-  coverage:
-    description: Whether to install tools for coverage checking
-    required: false
-    default: true
-  coverage-version:
-    description: The version of coverage desired
-    required: false
-    default: ">= 4.4, < 5.0"
+    default: matplotlib.backends.backend_agg
 runs:
   using: composite
   steps:
+  - run: echo "MPLBACKEND=module://${{ inputs.back-end }}" >> $GITHUB_ENV
+    # We want this variable to persist
+    shell: bash
   - run: |
-      python -m pip install --upgrade pip setuptools wheel
-      pip install flake8 "pylint $PYLINT_VERSION"
-      if [ $DO_COVERAGE = "true" ]; then
-        pip install "coverage $COVERAGE_VERSION" python-coveralls
+      if [ $V36 = "true" ]; then
+        pip install "matplotlib < 3.4"
+      else
+        pip install "matplotlib"
       fi
     shell: bash
     env:
-      PYLINT_VERSION: ${{ inputs.pylint-version }}
-      DO_COVERAGE: ${{ inputs.coverage == 'true' }}
-      COVERAGE_VERSION: ${{ inputs.coverage-version }}
+      V36: ${{ inputs.python-version == '3.6' }}
