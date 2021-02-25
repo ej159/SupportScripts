@@ -3,18 +3,30 @@
 
 REPO=$1
 
-Branch=$(git ls-remote $REPO | awk '
+Branch=$(git ls-remote $REPO 2>/dev/null | awk '
     BEGIN {
-    	branch = "master"
+    	id = "x"
+    	# The next line is a default default only
+    	branch = "REMOTE_PARSE_FAILED"
     	target = ENVIRON["GITHUB_REF"]
     }
+    $2=="HEAD" {
+    	# Note that the remote HEAD ref comes first
+    	id = $1
+    }
+    $1==id {
+    	branch = $2
+    	# May be overwritten by the rule below; this is OK
+    }
     $2==target {
-    	branch = ENVIRON["GITHUB_REF"]
+    	branch = target
+    	# Reset the ID to a non-hash so the rule to match it will not fire
+    	id = "x"
     }
     END {
+    	sub(/refs\/heads\//, "", branch)
     	print branch
     }')
 
-Branch=${Branch#refs/heads/}
-git clone --branch $Branch $REPO || exit $?
+git clone --depth 1 --branch $Branch $REPO || exit $?
 echo "checked out branch $Branch of $REPO"
