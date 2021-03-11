@@ -60,7 +60,7 @@ runs:
         EXTRA_OPTS: ${{ inputs.options }}
     - run: |
         if [ $DO_COVERAGE = "true" ]; then
-          coveralls
+          coveralls || echo "::warning::Make sure you have used secrets.GITHUB_TOKEN, not secrets.COVERALLS_REPO_TOKEN"
         fi
       env:
         COVERALLS_SERVICE_NAME: github
