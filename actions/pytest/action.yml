@@ -60,12 +60,11 @@ runs:
         EXTRA_OPTS: ${{ inputs.options }}
     - run: |
         if [ $DO_COVERAGE = "true" ]; then
-          echo "DEBUG: $COVERALLS_REPO_TOKEN" | base64
           coveralls
         fi
       env:
         COVERALLS_SERVICE_NAME: github
-        COVERALLS_REPO_TOKEN: ${{ inputs.coveralls-token }}
+        COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         COVERALLS_GIT_COMMIT: ${{ github.sha }}
         COVERALLS_GIT_BRANCH: ${{ github.ref }}
         COVERALLS_FLAG_NAME: ${{ inputs.coveralls-flag-name }}
