@@ -64,7 +64,7 @@ runs:
         fi
       env:
         COVERALLS_SERVICE_NAME: github
-        COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        COVERALLS_REPO_TOKEN: ${{ inputs.coveralls-token }}
         COVERALLS_GIT_COMMIT: ${{ github.sha }}
         COVERALLS_GIT_BRANCH: ${{ github.ref }}
         COVERALLS_FLAG_NAME: ${{ inputs.coveralls-flag-name }}
