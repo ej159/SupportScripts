@@ -17,6 +17,7 @@ name: "Run py.test"
 description: |
   Runs pytest and optionally coveralls.
   Note that installing pytest and coveralls in the environment before this action is up to the caller.
+  Doesn't (currently) support parallel coverage gathering.
 inputs:
   tests:
     description: The name of the Python package containing the tests
@@ -33,14 +34,16 @@ inputs:
     description: The names of the Python packages to get coverage of.
     required: false
     default: ""
-  ci-name:
-    description: The name of the continuous integration environment.
-    required: false
-    default: 'GitHub CI'
   coveralls-token:
     description: The secret token used for uploading to coveralls.io
     required: false
     default: ""
+  coveralls-flag-name:
+    description: >
+      Job flag name, e.g. "Unit", "Functional", or "Integration". Will be shown
+      in the Coveralls UI.
+    required: false
+    default: Unit
 runs:
   using: composite
   steps: 
@@ -60,8 +63,11 @@ runs:
           coveralls
         fi
       env:
-        COVERALLS_SERVICE_NAME: ${{ inputs.ci-name }}
-        COVERALLS_REPO_TOKEN : ${{ inputs.coveralls-token }}
+        COVERALLS_SERVICE_NAME: github
+        COVERALLS_REPO_TOKEN: ${{ inputs.coveralls-token }}
+        COVERALLS_GIT_COMMIT: ${{ github.sha }}
+        COVERALLS_GIT_BRANCH: ${{ github.ref }}
+        COVERALLS_FLAG_NAME: ${{ inputs.coveralls-flag-name }}
         NODE_COVERALLS_DEBUG: 1
         DO_COVERAGE: ${{ inputs.coverage == 'true' }}
       shell: bash
