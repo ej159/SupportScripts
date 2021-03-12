@@ -44,6 +44,14 @@ inputs:
       in the Coveralls UI.
     required: false
     default: Unit
+  coveralls-parallel:
+    description: >
+      Whether a matrix of jobs is being done. If they are, you'll need to add a
+      finalization "build"; see 
+      https://github.com/TheKevJames/coveralls-python/blob/master/docs/usage/configuration.rst
+      for details. (tl;dr: coveralls --service=github --finish)
+    required: false
+    default: false
 runs:
   using: composite
   steps: 
@@ -60,14 +68,11 @@ runs:
         EXTRA_OPTS: ${{ inputs.options }}
     - run: |
         if [ $DO_COVERAGE = "true" ]; then
-          coveralls || echo "::warning::Make sure you have used secrets.GITHUB_TOKEN, not secrets.COVERALLS_REPO_TOKEN"
+          coveralls --service=github || echo "::warning::Make sure you have used secrets.GITHUB_TOKEN, not secrets.COVERALLS_REPO_TOKEN"
         fi
       env:
-        COVERALLS_SERVICE_NAME: github
-        COVERALLS_REPO_TOKEN: ${{ inputs.coveralls-token }}
-        COVERALLS_GIT_COMMIT: ${{ github.sha }}
-        COVERALLS_GIT_BRANCH: ${{ github.ref }}
+        GITHUB_TOKEN: ${{ inputs.coveralls-token }}
         COVERALLS_FLAG_NAME: ${{ inputs.coveralls-flag-name }}
-        NODE_COVERALLS_DEBUG: 1
+        COVERALLS_PARALLEL: ${{ inputs.coveralls-parallel }}
         DO_COVERAGE: ${{ inputs.coverage == 'true' }}
       shell: bash
