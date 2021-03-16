@@ -18,7 +18,7 @@ inputs:
   pylint-version:
     description: The version of pylint desired
     required: false
-    default: < 2.5
+    default: ""
   coverage:
     description: Whether to install tools for coverage checking
     required: false
@@ -34,7 +34,7 @@ runs:
       python -m pip install --upgrade pip setuptools wheel
       pip install flake8 "pylint $PYLINT_VERSION"
       if [ $DO_COVERAGE = "true" ]; then
-        pip install "coverage $COVERAGE_VERSION" python-coveralls
+        pip install "coverage $COVERAGE_VERSION" coveralls
       fi
     shell: bash
     env:
