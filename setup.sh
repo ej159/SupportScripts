@@ -4,13 +4,15 @@
 do_setup() {
     if [ -d $1 ]; then
         cd $1
-        if [ -z "$VIRTUAL_ENV" ] && [ -z "$CONDA_PREFIX" ] && [ -z "$ASROOT" ]; then
-            python setup.py develop --user || exit $1
-        else
-            python setup.py develop || exit $1
+        if [ -f setup.py ]; then
+            if [ -z "$VIRTUAL_ENV" ] && [ -z "$CONDA_PREFIX" ] && [ -z "$ASROOT" ]; then
+                python setup.py develop --user || exit $1
+            else
+                python setup.py develop || exit $1
+            fi
+            echo "Finished setup of $1"
         fi
         cd ..
-        echo "Finished setup of $1"
     fi
 }
 
