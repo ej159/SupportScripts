@@ -29,6 +29,5 @@ Code Repository
 Documentation
 =============
 
-[Combined PyNN7 python documentation](http://spinnaker7manchester.readthedocs.io)
-
-[Combined PyNN8 python documentation](http://spinnaker8manchester.readthedocs.io)
+ * [SpiNNaker online documentation](http://spinnakermanchester.github.io/)
+ * [Combined python documentation](http://spinnaker8manchester.readthedocs.io)
