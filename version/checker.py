@@ -34,6 +34,8 @@ def find_main_package(setup_file):
                 parts = line.split("\"")
                 # print parts
                 return parts[1]
+    if setup_file.endswith('/sPyNNaker/setup.py'):
+        return "spynnaker"
     raise Exception("Unable to find main_package = in {}".format(setup_file))
 
 
@@ -58,7 +60,7 @@ def find_version(version_file):
 
 
 def check_versions(file):
-    for name, version in versions.iteritems():
+    for name, version in versions.items():
         with open(file, 'r') as f:
             for line in f:
                 if name in line:
@@ -97,6 +99,5 @@ get_version("PACMAN")
 get_version("SpiNNFrontEndCommon")
 get_version("SpiNNakerGraphFrontEnd")
 get_version("sPyNNaker")
-get_version("sPyNNaker8")
 get_version("sPyNNaker8NewModelTemplate")
 print(versions)
