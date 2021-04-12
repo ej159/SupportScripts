@@ -101,7 +101,7 @@ def bump_conf_version(file):
         if line.startswith("version = "):
             lines[i] = "version = '6.0'\n"
         elif line.startswith("release ="):
-            lines[i] = "release = '6.0.0'\n"
+            lines[i] = "release = '6.0.1'\n"
         elif line.startswith("copyright ="):
             lines[i] = "copyright = u'2014-2021'\n"
         elif line.startswith("copyright = u'2014-2021'"):
