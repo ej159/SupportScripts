@@ -23,6 +23,8 @@ def get_version(module):
     main_directory = os.path.join(module_directory, main_package)
     version_path = os.path.join(main_directory, "_version.py")
     version = find_version(version_path)
+    if version != VERSION:
+        raise Exception(f"Found version {version} in {module}")
     print(module, main_package, version, name)
     versions[name] = version
 
@@ -34,6 +36,10 @@ def find_main_package(setup_file):
                 parts = line.split("\"")
                 # print parts
                 return parts[1]
+    if setup_file.endswith('/sPyNNaker/setup.py'):
+        return "spynnaker"
+    if setup_file.endswith('/spalloc/setup.py'):
+        return "spalloc"
     raise Exception("Unable to find main_package = in {}".format(setup_file))
 
 
@@ -58,7 +64,7 @@ def find_version(version_file):
 
 
 def check_versions(file):
-    for name, version in versions.iteritems():
+    for name, version in versions.items():
         with open(file, 'r') as f:
             for line in f:
                 if name in line:
@@ -74,6 +80,8 @@ def check_version(line, name, version, file):
         line = line[1:]
         line = line.strip(" \t\n\r',[]")
     # check in case sPyNNaker7.. or sPyNNaker8..
+    if "#" in line:
+        return  # comment
     if line[:4] == "name":
         return
     if line[:3] == "url":
@@ -87,16 +95,17 @@ def check_version(line, name, version, file):
         raise Exception("Version mismatch in {} found {} expected {} {} in "
                         "File \"{}\"".format(file, line, name, version, file))
 
-
+VERSION = "1!6.0.0"
 print(root_directory)
 get_version("SpiNNUtils")
 get_version("SpiNNMachine")
 get_version("SpiNNMan")
 get_version("DataSpecification")
 get_version("PACMAN")
+get_version("spalloc")
+get_version("testbase")
 get_version("SpiNNFrontEndCommon")
 get_version("SpiNNakerGraphFrontEnd")
 get_version("sPyNNaker")
-get_version("sPyNNaker8")
 get_version("sPyNNaker8NewModelTemplate")
 print(versions)
