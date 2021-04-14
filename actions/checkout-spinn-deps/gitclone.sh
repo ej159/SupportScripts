@@ -24,7 +24,7 @@ Branch=$(git ls-remote $REPO 2>/dev/null | awk '
     	id = "x"
     }
     END {
-    	sub(/refs\/heads\//, "", branch)
+    	sub(/refs\/(heads|tags)\//, "", branch)
     	print branch
     }')
 
