@@ -38,3 +38,4 @@ do_make sPyNNaker8NewModelTemplate/c_models/
 do_make SpiNNakerGraphFrontEnd/gfe_examples/
 do_make SpiNNakerGraphFrontEnd/gfe_integration_tests/
 do_make SpiNNGym/c_code
+do_make SpiNNaker_PDP2/c_code
