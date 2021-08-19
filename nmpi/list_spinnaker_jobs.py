@@ -21,7 +21,15 @@ headers = {
 response = requests.get(NMPI_URL, headers=headers)
 job_list = response.json()
 
+other = list()
 for job in job_list["objects"]:
     if "SPINNAKER" in job["hardware_platform"].upper():
         print("{}: {}: {}".format(
             job["hardware_platform"], job["id"], job["status"]))
+    else:
+        other.append(job)
+
+print("\nOther jobs:")
+for job in other:
+    print("{}: {}: {}".format(
+        job["hardware_platform"], job["id"], job["status"]))
