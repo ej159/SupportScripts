@@ -19,5 +19,5 @@ curl --retry 5 -I -L -D - "$raturl" | grep -q "200 OK" || {
   exit 1
 }
 
-curl -s -L --output - "$raturl" | tar -zxf -
+curl --retry 5 -s -L --output - "$raturl" | tar -zxf -
 exit $?
