@@ -14,7 +14,7 @@ if [ -d $dir ]; then
   exit 0
 fi
 
-curl --retry 5 --retry-all-errors -s -I -L -D - "$raturl" 2>/dev/null | grep -q "200 OK" || {
+curl --retry 5 --retry-all-errors -I -L -D - "$raturl" | grep -q "200 OK" || {
   echo "::error::Version of RAT ($RAT_VERSION) is wrong or mirror is down (URL: $raturl)"
   exit 1
 }
